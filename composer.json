@@ -1,6 +1,6 @@
 {
   "name": "musa11971/filament-translation-manager",
-  "description": "TBA",
+  "description": "Manage your application's translation strings in Filament.",
   "keywords": [
     "laravel",
     "localization",
