@@ -8,6 +8,7 @@ return [
     'preview-in-your-lang' => 'Preview in your current language (:lang)',
     'synchronize' => 'Synchronize',
     'synchronization-success' => 'Synchronized :count translations!',
+    'synchronization-deleted' => 'Deleted :count unused translations',
     'preview' => 'Preview',
     'preview-description' => 'This is an example in the currently selected language (:lang)',
     'add-translation-button' => 'Add new translation',
