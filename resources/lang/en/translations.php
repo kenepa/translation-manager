@@ -14,4 +14,5 @@ return [
     'add-translation-button' => 'Add new translation',
     'translation-language' => 'Language',
     'translation-text' => 'Translated text',
+    'filter-not-translated' => 'Not translated into',
 ];

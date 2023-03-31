@@ -13,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use musa11971\FilamentTranslationManager\Filters\NotTranslatedFilter;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
 use Spatie\TranslationLoader\LanguageLine;
@@ -75,6 +76,7 @@ class LanguageLineResource extends Resource
     {
         return $table
             ->columns(static::getColumns())
+            ->filters([NotTranslatedFilter::make()])
             ->actions([
                 EditAction::make(),
             ])
