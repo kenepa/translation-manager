@@ -32,7 +32,7 @@ class TranslationScanner
             $name = implode('/', $name);
 
             // Traverse the array keys in this group
-            $this->traverseArray(trans($name), $seenCombinations, $allGroupsAndKeys, $name);
+            $this->traverseArray(trans($name, [], config('app.fallback_locale')), $seenCombinations, $allGroupsAndKeys, $name);
         }
 
         return $allGroupsAndKeys;
