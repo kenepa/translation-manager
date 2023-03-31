@@ -7,6 +7,11 @@ use Illuminate\Support\Str;
 
 class TranslationScanner
 {
+    /**
+     * Starts the translation scanning process.
+     *
+     * @return array An array containing all translation groups and keys found in the application.
+     */
     public function start(): array
     {
         $files = File::allFiles(lang_path());
@@ -25,24 +30,37 @@ class TranslationScanner
             unset($name[0]);
             $name = implode('/', $name);
 
-            // Loop through the keys in this group
-            $keyGroup = trans($name);
+            // Traverse the array keys in this group
+            $this->traverseArray(trans($name), $allGroupsAndKeys, $name);
+        }
 
-            foreach ($keyGroup as $key => $translation) {
-                // TODO: Fix this bug.
-                // Arrays should be added recursively
-                if (is_array(trans($name . '.' . $key))) {
-                    continue;
-                }
+        return $allGroupsAndKeys;
+    }
 
+    /**
+     * Recursively traverses an array and adds all keys to the `$allGroupsAndKeys` array.
+     *
+     * @param array $array The array to traverse.
+     * @param array $allGroupsAndKeys The array to add the keys to.
+     * @param string $groupName The name of the translation group.
+     * @param string|null $parentKey The parent key path, if applicable.
+     *
+     * @return void
+     */
+    private function traverseArray($array, &$allGroupsAndKeys, $groupName, $parentKey = null): void
+    {
+        foreach ($array as $key => $value) {
+            $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
+
+            if (is_array($value)) {
+                $this->traverseArray($value, $allGroupsAndKeys, $groupName, $currentKey);
+            } else {
                 $allGroupsAndKeys[] = [
-                    'group' => $name,
-                    'key' => $key,
+                    'group' => $groupName,
+                    'key' => $currentKey,
                     'text' => [],
                 ];
             }
         }
-
-        return $allGroupsAndKeys;
     }
 }
