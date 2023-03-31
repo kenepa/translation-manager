@@ -17,6 +17,7 @@ class TranslationScanner
         $files = File::allFiles(lang_path());
 
         $allGroupsAndKeys = [];
+        $seenCombinations = [];
 
         // Loop through all groups
         foreach ($files as $file) {
@@ -31,7 +32,7 @@ class TranslationScanner
             $name = implode('/', $name);
 
             // Traverse the array keys in this group
-            $this->traverseArray(trans($name), $allGroupsAndKeys, $name);
+            $this->traverseArray(trans($name), $seenCombinations, $allGroupsAndKeys, $name);
         }
 
         return $allGroupsAndKeys;
@@ -40,21 +41,27 @@ class TranslationScanner
     /**
      * Recursively traverses an array and adds all keys to the `$allGroupsAndKeys` array.
      *
-     * @param array $array The array to traverse.
-     * @param array $allGroupsAndKeys The array to add the keys to.
-     * @param string $groupName The name of the translation group.
-     * @param string|null $parentKey The parent key path, if applicable.
-     *
-     * @return void
+     * @param  array  $array The array to traverse.
+     * @param  array  $allGroupsAndKeys The array to add the keys to.
+     * @param  string  $groupName The name of the translation group.
+     * @param  string|null  $parentKey The parent key path, if applicable.
      */
-    private function traverseArray($array, &$allGroupsAndKeys, $groupName, $parentKey = null): void
+    private function traverseArray($array, &$seenCombinations, &$allGroupsAndKeys, $groupName, $parentKey = null): void
     {
         foreach ($array as $key => $value) {
             $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
 
             if (is_array($value)) {
-                $this->traverseArray($value, $allGroupsAndKeys, $groupName, $currentKey);
+                $this->traverseArray($value, $seenCombinations, $allGroupsAndKeys, $groupName, $currentKey);
             } else {
+                // Skip if this group and key pair has already been added
+                if (isset($seenCombinations[$groupName][$currentKey])) {
+                    continue;
+                }
+
+                // Add this group and key pair to the array
+                $seenCombinations[$groupName][$currentKey] = true;
+
                 $allGroupsAndKeys[] = [
                     'group' => $groupName,
                     'key' => $currentKey,
