@@ -10,10 +10,18 @@ use Spatie\LaravelPackageTools\Package;
 
 class FilamentTranslationManagerProvider extends PluginServiceProvider
 {
+    /**
+     * The resources that the plugin registers.
+     *
+     * @var array|string[]
+     */
     protected array $resources = [
         LanguageLineResource::class,
     ];
 
+    /**
+     * Configure the Filament Translation Manager package.
+     */
     public function configurePackage(Package $package): void
     {
         $package->name('filament-translation-manager')
@@ -23,6 +31,11 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
             ->hasTranslations();
     }
 
+    /**
+     * Boot the service provider.
+     *
+     * @return FilamentTranslationManagerProvider|void
+     */
     public function boot()
     {
         parent::boot();
