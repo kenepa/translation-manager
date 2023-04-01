@@ -12,8 +12,8 @@ return [
     */
 
     'available_locales' => [
-        ['code' => 'en', 'name' => 'English'],
-        ['code' => 'nl', 'name' => 'Nederlands'],
+        ['code' => 'en', 'name' => 'English', 'emoji' => '🇬🇧'],
+        ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱'],
     ],
 
     /*
@@ -27,5 +27,16 @@ return [
     */
 
     'disable_key_and_group_editing' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Language Switcher
+    |--------------------------------------------------------------------------
+    |
+    | Enable the language switcher feature in the Filament top bar.
+    |
+    */
+
+    'language_switcher' => true,
 
 ];
