@@ -13,6 +13,8 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use musa11971\FilamentTranslationManager\Filters\NotTranslatedFilter;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
@@ -141,6 +143,16 @@ class LanguageLineResource extends Resource
         }
 
         return $translated;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return Gate::allows('use-translation-manager');
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return Gate::allows('use-translation-manager');
     }
 
     protected static function getNavigationLabel(): string

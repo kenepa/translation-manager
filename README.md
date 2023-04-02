@@ -30,6 +30,17 @@ You can run the following command to publish the configuration file:
 php artisan vendor:publish --tag=filament-translation-manager-config
 ```
 
+## Authorization
+
+By default, the translation manager cannot be used by anyone. You need to define the following gate in your `AppServiceProvider` boot method:
+
+```php
+Gate::define('use-translation-manager', function (?User $user) {
+    // Your authorization logic
+    return $user !== null && $user->hasRole('admin');
+});
+```
+
 ## Usage
 
 Once installed, Filament Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.
