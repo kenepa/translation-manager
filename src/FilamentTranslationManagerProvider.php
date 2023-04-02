@@ -102,13 +102,15 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
      */
     private function registerLanguageSwitcher()
     {
+        if (! config('filament-translation-manager.language_switcher')) {
+            return;
+        }
+
         Filament::serving(function () {
-            if (config('filament-translation-manager.language_switcher')) {
-                Filament::registerRenderHook(
-                    'global-search.end',
-                    fn (): View => $this->getLanguageSwitcherView()
-                );
-            }
+            Filament::registerRenderHook(
+                'global-search.end',
+                fn (): View => $this->getLanguageSwitcherView()
+            );
         });
     }
 }
