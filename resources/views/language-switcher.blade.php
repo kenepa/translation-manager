@@ -9,7 +9,7 @@
             $refs.panel.close(event)
         },
     }">
-    <button id="filament-language-switcher" class="block" x-on:click="toggle">
+    <button class="ml-4" id="filament-language-switcher" class="block" x-on:click="toggle">
         <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-900">
             <span class="text-xl">{{ $currentLanguageEmoji }}</span>
         </div>
