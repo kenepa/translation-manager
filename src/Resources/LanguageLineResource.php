@@ -13,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use musa11971\FilamentTranslationManager\Filters\NotTranslatedFilter;
@@ -100,7 +101,10 @@ class LanguageLineResource extends Resource
                 ->searchable(),
 
             TextColumn::make('preview')
-                ->searchable(false)
+                ->searchable(query: function (Builder $query, string $search): Builder {
+                    return $query
+                        ->where('text', 'like', "%{$search}%");
+                })
                 ->label(__('filament-translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
                 ->icon('heroicon-o-translate')
                 ->size('sm')
