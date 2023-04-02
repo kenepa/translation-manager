@@ -19,7 +19,7 @@ Filament Translation Manager is a plugin for Filament that enables users to mana
 
 ## Installation
 
-To install Filament Translation Manager, simply require the package using Composer:
+To install Filament Translation Manager, first require the package using Composer:
 
 ```bash
 composer require musa11971/filament-translation-manager
@@ -29,6 +29,24 @@ You can run the following command to publish the configuration file:
 ```bash
 php artisan vendor:publish --tag=filament-translation-manager-config
 ```
+
+This package uses `spatie/laravel-translation-loader`, publish their migration file using:
+```bash
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
+```
+
+You have to update the migration file to the following:
+```php
+Schema::create('language_lines', function (Blueprint $table) {
+    $table->bigIncrements('id');
+    $table->string('group')->index();
+    $table->string('key')->index();
+    $table->json('text')->default('[]');
+    $table->timestamps();
+});
+```
+
+Finally, run the migration.
 
 ## Authorization
 
