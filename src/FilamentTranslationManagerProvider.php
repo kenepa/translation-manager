@@ -80,6 +80,7 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
             'available_locales' => ['required', 'array', 'min:1'],
             'disable_key_and_group_editing' => ['required', 'boolean'],
             'language_switcher' => ['required', 'boolean'],
+            'navigation_group' => ['nullable', 'string'],
         ]);
 
         $appValidator = Validator::make($appConfig, [

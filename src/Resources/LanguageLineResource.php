@@ -166,4 +166,9 @@ class LanguageLineResource extends Resource
     {
         return __('filament-translation-manager::translations.translation-navigation-label');
     }
+
+    protected static function getNavigationGroup(): ?string
+    {
+        return config('filament-translation-manager.navigation_group');
+    }
 }

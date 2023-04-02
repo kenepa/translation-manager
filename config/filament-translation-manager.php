@@ -39,4 +39,15 @@ return [
 
     'language_switcher' => true,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Navigation Group
+    |--------------------------------------------------------------------------
+    |
+    | The navigation group the translation manager is shown in, for example: 'Admin'.
+    |
+    */
+
+    'navigation_group' => null,
+
 ];
