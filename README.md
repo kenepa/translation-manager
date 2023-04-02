@@ -1,14 +1,12 @@
-# Filament Translation Manager
+![Filament Translation Manager](.github/banner.png)
 
-Filament Translation Manager is a plugin for Filament that enables users to manage translations directly within the Filament admin dashboard.
 
 ## Features
 
 - Manage translations in your Filament admin dashboard 
 - Preview translations in the current language 
 - Synchronize translations with your language files 
-- Add new translations for your application 
-- Delete unused translations
+- (Optional) language switcher feature
 
 ## Benefits
 
@@ -59,9 +57,25 @@ Gate::define('use-translation-manager', function (?User $user) {
 });
 ```
 
+## Configuration
+#### `available_locales`
+Determines which locales your application supports. For example:
+```php
+'available_locales' => [
+    ['code' => 'en', 'name' => 'English', 'emoji' => '🇬🇧'],
+    ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱'],
+    ['code' => 'de', 'name' => 'Deutsch', 'emoji' => '🇩🇪']
+]
+```
+
+#### `language_switcher`
+Enable or disable the language switcher feature. This allows users to switch their language - disable if you have your own implementation.  
+![Language Switcher](.github/language-switcher.png)
+
 ## Usage
 
-Once installed, Filament Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.
+Once installed, Filament Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.  
+
 
 ## License
 
@@ -69,4 +83,4 @@ Filament Translation Manager is open-sourced software licensed under the MIT lic
 
 ## Credits
 
-Filament Translation Manager is created and maintained by Your Name Here.
+Filament Translation Manager is created and maintained by [musa11971](https://github.com/musa11971).
