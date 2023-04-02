@@ -41,11 +41,13 @@ class LanguageLineResource extends Resource
         return $form
             ->schema([
                 TextInput::make('group')
+                    ->prefixIcon('heroicon-o-tag')
                     ->disabled(config('filament-translation-manager.disable_key_and_group_editing'))
                     ->label(__('filament-translation-manager::translations.group'))
                     ->required(),
 
                 TextInput::make('key')
+                    ->prefixIcon('heroicon-o-key')
                     ->disabled(config('filament-translation-manager.disable_key_and_group_editing'))
                     ->label(__('filament-translation-manager::translations.key'))
                     ->required(),
@@ -56,6 +58,7 @@ class LanguageLineResource extends Resource
 
                 Repeater::make('translations')->schema([
                     Select::make('language')
+                        ->prefixIcon('heroicon-o-translate')
                         ->label(__('filament-translation-manager::translations.translation-language'))
                         ->options(collect(config('filament-translation-manager.available_locales'))->pluck('code', 'code'))
                         ->required(),
@@ -99,7 +102,7 @@ class LanguageLineResource extends Resource
             TextColumn::make('preview')
                 ->searchable(false)
                 ->label(__('filament-translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
-                ->icon('heroicon-s-globe')
+                ->icon('heroicon-o-translate')
                 ->size('sm')
                 ->sortable(false)
                 ->formatStateUsing(fn ($record): string => static::getTranslationPreview($record, 50)),
