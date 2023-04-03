@@ -13,7 +13,7 @@ return [
 
     'available_locales' => [
         ['code' => 'en', 'name' => 'English', 'emoji' => '🇬🇧'],
-        ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱'],
+        // ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱'],
     ],
 
     /*
