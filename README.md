@@ -46,6 +46,30 @@ Schema::create('language_lines', function (Blueprint $table) {
 
 Finally, run the migration.
 
+## (Optional) Enable the middleware
+If you want to make use of the language switcher, you have to enable the middleware.  
+First in `app/Http/Kernel.php` under the 'web' middleware group:  
+```php
+protected $middlewareGroups = [
+    'web' => [
+        // ... 
+        // Add the middleware to the array
+        \musa11971\FilamentTranslationManager\Http\Middleware\SetLanguage::class,
+    ]
+];
+```
+Secondly in `config/filament.php`:
+```php
+'middleware' => [
+    'auth' => [/* ... */],
+    'base' => [
+        // ... 
+        // Add the middleware to the array
+        \musa11971\FilamentTranslationManager\Http\Middleware\SetLanguage::class,
+    ]
+]
+```
+
 ## Authorization
 
 By default, the translation manager cannot be used by anyone. You need to define the following gate in your `AppServiceProvider` boot method:
