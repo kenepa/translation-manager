@@ -15,4 +15,11 @@ return [
     'translation-language' => 'Taal',
     'translation-text' => 'Vertaalde tekst',
     'filter-not-translated' => 'Niet vertaald naar',
+    'quick-translate' => 'Snelle vertaling',
+    'quick-translate-select-locale' => 'Selecteer de taal',
+    'quick-translate-translation-number' => ':total vertalingen nog te vertalen',
+    'quick-translate-skip' => 'Deze vertaling overslaan',
+    'quick-translate-enter' => 'Voer de vertaling in voor ":lang":',
+    'quick-translate-save-and-continue' => 'Opslaan en doorgaan',
+    'quick-translate-nothing' => 'Niets meer te vertalen!',
 ];

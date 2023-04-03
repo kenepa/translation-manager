@@ -15,4 +15,11 @@ return [
     'translation-language' => 'Langue',
     'translation-text' => 'Texte traduit',
     'filter-not-translated' => 'Non traduit en',
+    'quick-translate' => 'Traduction rapide',
+    'quick-translate-select-locale' => 'Sélectionner la langue',
+    'quick-translate-translation-number' => ':total traductions restantes à effectuer',
+    'quick-translate-skip' => 'Passer cette traduction',
+    'quick-translate-enter' => 'Entrer la traduction en ":lang" :',
+    'quick-translate-save-and-continue' => 'Enregistrer et continuer',
+    'quick-translate-nothing' => 'Plus rien à traduire !',
 ];
