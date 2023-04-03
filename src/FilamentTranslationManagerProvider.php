@@ -21,6 +21,10 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
         LanguageLineResource::class,
     ];
 
+    protected array $pages = [
+
+    ];
+
     /**
      * Configure the Filament Translation Manager package.
      */

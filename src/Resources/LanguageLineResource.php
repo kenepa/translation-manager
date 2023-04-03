@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use musa11971\FilamentTranslationManager\Filters\NotTranslatedFilter;
+use musa11971\FilamentTranslationManager\Pages\QuickTranslate;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
 use Spatie\TranslationLoader\LanguageLine;
@@ -137,6 +138,7 @@ class LanguageLineResource extends Resource
         return [
             'index' => ListLanguageLines::route('/'),
             'edit' => EditLanguageLine::route('/{record}/edit'),
+            'quick-translate' => QuickTranslate::route('/quick-translate'),
         ];
     }
 

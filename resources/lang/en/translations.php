@@ -15,4 +15,11 @@ return [
     'translation-language' => 'Language',
     'translation-text' => 'Translated text',
     'filter-not-translated' => 'Not translated into',
+    'quick-translate' => 'Quick Translate',
+    'quick-translate-select-locale' => 'Select the language',
+    'quick-translate-translation-number' => ':total translations left to translate',
+    'quick-translate-skip' => 'Skip this translation',
+    'quick-translate-enter' => 'Enter the translation in ":lang":',
+    'quick-translate-save-and-continue' => 'Save and continue',
+    'quick-translate-nothing' => 'Nothing left to translate!',
 ];
