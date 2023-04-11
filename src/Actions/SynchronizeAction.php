@@ -18,17 +18,18 @@ class SynchronizeAction extends Action
 
     /**
      * Runs the synchronization process for the translations.
-     *
-     * @param  Page  $page The page to display notifications on.
      */
-    public static function run(Page $page): void
+    public static function synchronize(): array
     {
+        $result = [];
+
         // Create non-existing groups and keys
         $scanner = new TranslationScanner;
         $groupsAndKeys = $scanner->start();
+        $result['total_count'] = count($groupsAndKeys);
 
         // Find and delete old LanguageLines that no longer exist in the translation files
-        $deletedCount = LanguageLine::whereNotIn('group', array_column($groupsAndKeys, 'group'))
+        $result['deleted_count'] = LanguageLine::whereNotIn('group', array_column($groupsAndKeys, 'group'))
             ->orWhereNotIn('key', array_column($groupsAndKeys, 'key'))
             ->delete();
 
@@ -37,10 +38,22 @@ class SynchronizeAction extends Action
             LanguageLine::updateOrCreate($groupAndKey);
         }
 
-        $page->notify('success', __('filament-translation-manager::translations.synchronization-success', ['count' => count($groupsAndKeys)]));
+        return $result;
+    }
 
-        if ($deletedCount > 0) {
-            $page->notify('success', __('filament-translation-manager::translations.synchronization-deleted', ['count' => $deletedCount]));
+    /**
+     * Runs the synchronization process for a page.
+     *
+     * @param  Page  $page The page to display notifications on.
+     */
+    public static function run(Page $page): void
+    {
+        $result = static::synchronize();
+
+        $page->notify('success', __('filament-translation-manager::translations.synchronization-success', ['count' => $result['total_count']]));
+
+        if ($result['deleted_count'] > 0) {
+            $page->notify('success', __('filament-translation-manager::translations.synchronization-deleted', ['count' => $result['deleted_count']]));
         }
     }
 }

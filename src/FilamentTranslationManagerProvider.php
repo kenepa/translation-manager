@@ -7,6 +7,7 @@ use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use musa11971\FilamentTranslationManager\Commands\SynchronizeTranslationsCommand;
 use musa11971\FilamentTranslationManager\Resources\LanguageLineResource;
 use Spatie\LaravelPackageTools\Package;
 
@@ -31,6 +32,7 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name('filament-translation-manager')
+            ->hasCommand(SynchronizeTranslationsCommand::class)
             ->hasViews()
             ->hasConfigFile()
             ->hasRoute('web')
