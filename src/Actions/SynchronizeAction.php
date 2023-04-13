@@ -4,6 +4,7 @@ namespace musa11971\FilamentTranslationManager\Actions;
 
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Page;
+use Illuminate\Console\Command;
 use musa11971\FilamentTranslationManager\Helpers\TranslationScanner;
 use Spatie\TranslationLoader\LanguageLine;
 
@@ -19,7 +20,7 @@ class SynchronizeAction extends Action
     /**
      * Runs the synchronization process for the translations.
      */
-    public static function synchronize(): array
+    public static function synchronize(Command $command = null): array
     {
         $result = [];
 
@@ -33,8 +34,13 @@ class SynchronizeAction extends Action
             ->orWhereNotIn('key', array_column($groupsAndKeys, 'key'))
             ->delete();
 
+        $command?->info('found ' . $result['total_count']);
+        $command?->info('deleted ' . $result['deleted_count']);
+
         // Create new LanguageLines for the groups and keys that don't exist yet
         foreach ($groupsAndKeys as $groupAndKey) {
+            $command?->info('update/create for ' . json_encode($groupAndKey));
+
             LanguageLine::updateOrCreate($groupAndKey);
         }
 

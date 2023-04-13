@@ -29,7 +29,7 @@ class SynchronizeTranslationsCommand extends Command
         $startTime = microtime(true);
         $this->info('Synchronization busy...');
 
-        $result = SynchronizeAction::synchronize();
+        $result = SynchronizeAction::synchronize($this);
 
         $elapsedSecs = round(microtime(true) - $startTime, 2);
         $this->info('Synchronization success! (' . $elapsedSecs . 's)');
