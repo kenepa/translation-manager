@@ -12,7 +12,7 @@ class SynchronizeTranslationsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translations:synchronize';
+    protected $signature = 'translations:synchronize {--l|loud}';
 
     /**
      * The console command description.
@@ -33,7 +33,22 @@ class SynchronizeTranslationsCommand extends Command
 
         $elapsedSecs = round(microtime(true) - $startTime, 2);
         $this->info('Synchronization success! (' . $elapsedSecs . 's)');
-        $this->info('  - total: ' . $result['total_count']);
-        $this->info('  - deleted: ' . $result['deleted_count']);
+        $this->loudInfo('  - total: ' . $result['total_count']);
+        $this->loudInfo('  - deleted: ' . $result['deleted_count']);
+    }
+
+    /**
+     * Prints the info message if loud option is enabled.
+     *
+     * @return void
+     */
+    public function loudInfo($message)
+    {
+        if (! $this->option('loud')) {
+            return;
+        }
+
+        $prefix = '[' . now()->format('H:i:s') . '] ! ';
+        $this->info($prefix . $message);
     }
 }

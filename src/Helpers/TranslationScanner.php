@@ -2,11 +2,20 @@
 
 namespace musa11971\FilamentTranslationManager\Helpers;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use musa11971\FilamentTranslationManager\Commands\SynchronizeTranslationsCommand;
 
 class TranslationScanner
 {
+    private ?Command $command;
+
+    public function __construct(SynchronizeTranslationsCommand $command = null)
+    {
+        $this->command = $command;
+    }
+
     /**
      * Starts the translation scanning process.
      *
@@ -14,13 +23,19 @@ class TranslationScanner
      */
     public function start(): array
     {
+        $this->command?->loudInfo('starting scanner');
+
         $files = File::allFiles(lang_path());
+
+        $this->command?->loudInfo('found files count: ' . count($files));
 
         $allGroupsAndKeys = [];
         $seenCombinations = [];
 
         // Loop through all groups
         foreach ($files as $file) {
+            $this->command?->loudInfo('looping for file ' . $file->getRelativePathname());
+
             $name = $file->getRelativePathname();
 
             // Remove the .php extension
@@ -34,6 +49,8 @@ class TranslationScanner
             // Traverse the array keys in this group
             $this->traverseArray(trans($name, [], config('app.fallback_locale')), $seenCombinations, $allGroupsAndKeys, $name);
         }
+
+        $this->command?->loudInfo('scanner done');
 
         return $allGroupsAndKeys;
     }
@@ -61,6 +78,8 @@ class TranslationScanner
 
                 // Add this group and key pair to the array
                 $seenCombinations[$groupName][$currentKey] = true;
+
+                $this->command?->loudInfo('added ' . $groupName . '.' . $currentKey);
 
                 $allGroupsAndKeys[] = [
                     'group' => $groupName,

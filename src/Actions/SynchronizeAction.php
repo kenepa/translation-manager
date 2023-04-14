@@ -4,7 +4,7 @@ namespace musa11971\FilamentTranslationManager\Actions;
 
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Page;
-use Illuminate\Console\Command;
+use musa11971\FilamentTranslationManager\Commands\SynchronizeTranslationsCommand;
 use musa11971\FilamentTranslationManager\Helpers\TranslationScanner;
 use Spatie\TranslationLoader\LanguageLine;
 
@@ -20,13 +20,16 @@ class SynchronizeAction extends Action
     /**
      * Runs the synchronization process for the translations.
      */
-    public static function synchronize(Command $command = null): array
+    public static function synchronize(SynchronizeTranslationsCommand $command = null): array
     {
+        $command?->loudInfo('synchronize function called');
+
         $result = [];
 
         // Create non-existing groups and keys
-        $scanner = new TranslationScanner;
+        $scanner = new TranslationScanner($command);
         $groupsAndKeys = $scanner->start();
+
         $result['total_count'] = count($groupsAndKeys);
 
         // Find and delete old LanguageLines that no longer exist in the translation files
@@ -34,15 +37,21 @@ class SynchronizeAction extends Action
             ->orWhereNotIn('key', array_column($groupsAndKeys, 'key'))
             ->delete();
 
-        $command?->info('found ' . $result['total_count']);
-        $command?->info('deleted ' . $result['deleted_count']);
+        $command?->loudInfo('deleted old languagelines');
+
+        $command?->loudInfo('found ' . $result['total_count'] . ' total language lines');
+        $command?->loudInfo('deleted ' . $result['deleted_count'] . ' unused ones');
 
         // Create new LanguageLines for the groups and keys that don't exist yet
         foreach ($groupsAndKeys as $groupAndKey) {
-            $command?->info('update/create for ' . json_encode($groupAndKey));
+            $command?->loudInfo('updateOrCreate: ' . $groupAndKey['group'] . '.' . $groupAndKey['group']);
 
             LanguageLine::updateOrCreate($groupAndKey);
+
+            $command?->loudInfo('done');
         }
+
+        $command?->loudInfo('finished synchronize function');
 
         return $result;
     }
