@@ -56,6 +56,13 @@ class TranslationScanner
 
             // Traverse the array keys in this group
             $groupArray = trans($name, [], config('app.fallback_locale'));
+
+            if (! is_array($groupArray)) {
+                $this->command?->loudInfo('skipped non-array: ' . $name);
+
+                continue;
+            }
+
             $this->traverseArray($groupArray, $seenCombinations, $allGroupsAndKeys, $name);
         }
 
