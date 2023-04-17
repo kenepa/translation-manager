@@ -42,12 +42,21 @@ class TranslationScanner
             $name = Str::replace('.php', '', $name);
 
             // Remove the first part (e.g. nl)
-            $name = explode('/', $name);
-            unset($name[0]);
-            $name = implode('/', $name);
+            $nameParts = explode('/', $name);
+
+            // TODO: add support for vendor translations
+            if ($nameParts[0] == 'vendor') {
+                $this->command?->loudInfo('skipped vendor: ' . $name);
+
+                continue;
+            }
+
+            unset($nameParts[0]);
+            $name = implode('/', $nameParts);
 
             // Traverse the array keys in this group
-            $this->traverseArray(trans($name, [], config('app.fallback_locale')), $seenCombinations, $allGroupsAndKeys, $name);
+            $groupArray = trans($name, [], config('app.fallback_locale'));
+            $this->traverseArray($groupArray, $seenCombinations, $allGroupsAndKeys, $name);
         }
 
         $this->command?->loudInfo('scanner done');
