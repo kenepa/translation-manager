@@ -42,7 +42,7 @@ class TranslationScanner
             $name = Str::replace('.php', '', $name);
 
             // Remove the first part (e.g. nl)
-            $nameParts = explode('/', $name);
+            $nameParts = explode(DIRECTORY_SEPARATOR, $name);
 
             // TODO: add support for vendor translations
             if ($nameParts[0] == 'vendor') {
@@ -52,7 +52,7 @@ class TranslationScanner
             }
 
             unset($nameParts[0]);
-            $name = implode('/', $nameParts);
+            $name = implode(DIRECTORY_SEPARATOR, $nameParts);
 
             // Traverse the array keys in this group
             $groupArray = trans($name, [], config('app.fallback_locale'));
