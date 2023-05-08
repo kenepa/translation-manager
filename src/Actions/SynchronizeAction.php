@@ -46,7 +46,16 @@ class SynchronizeAction extends Action
         foreach ($groupsAndKeys as $groupAndKey) {
             $command?->loudInfo('updateOrCreate: ' . $groupAndKey['group'] . '.' . $groupAndKey['group']);
 
-            LanguageLine::updateOrCreate($groupAndKey);
+            $existingItem = LanguageLine::where('group', $groupAndKey['group'])
+                ->where('key', $groupAndKey['key'])
+                ->first();
+            if (!$existingItem) {
+                LanguageLine::create([
+                    'group' => $groupAndKey['group'],
+                    'key' => $groupAndKey['key'],
+                    'text' => $groupAndKey['text'],
+                ]);
+            }
 
             $command?->loudInfo('done');
         }
