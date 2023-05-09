@@ -7,6 +7,10 @@ use Illuminate\Support\Str;
 
 class TranslationScanner
 {
+    private static $seenCombinations = [];
+
+    private static $allGroupsAndKeys = [];
+
     /**
      * Starts the translation scanning process.
      *
@@ -14,45 +18,68 @@ class TranslationScanner
      */
     public static function scan(): array
     {
-        $allGroupsAndKeys = [];
         $files = File::allFiles(lang_path());
 
         // Loop through all groups
         foreach ($files as $file) {
-            // Remove the first part (e.g. nl)
-            $nameParts = explode(DIRECTORY_SEPARATOR, $file->getRelativePathname());
+            // Skip any other files than .php language files e.g. JSON files
+            if ($file->getExtension() != 'php') {
+                continue;
+            }
+
+            // Sanitize the file name and explode to allow checking
+            $name = Str::replace('.php', '', $file->getRelativePathname());
+            $nameParts = explode(DIRECTORY_SEPARATOR, $name);
 
             // TODO: add support for vendor translations
             if ($nameParts[0] == 'vendor') {
                 continue;
             }
 
-            // load the dat from the file
-            $data = require $file;
+            // Load the data from the file
+            self::parseTranslation(require $file, $nameParts[0], $file->getFilenameWithoutExtension());
+        }
 
-            foreach ($data as $key => $value) {
+        return self::$allGroupsAndKeys;
+    }
+
+    /**
+     * Recursively parses a translation and adds all keys to the `$allGroupsAndKeys` array.
+     *
+     * @param  array  $translationArray The translation array to parse.
+     * @param  string  $locale The locale of the translation.
+     * @param  string  $groupName The name of the translation group.
+     * @param  string|null  $parentKey The parent key path, if applicable.
+     */
+    private static function parseTranslation($translationArray, $locale, $groupName, $parentKey = null): void
+    {
+        foreach ($translationArray as $key => $value) {
+            $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
+
+            if (is_array($value)) {
+                self::parseTranslation($value, $locale, $groupName, $currentKey);
+            } else {
                 $found = false;
-                $group = Str::replace('.php', '', $nameParts[1]);
 
                 // check if the translation is already present and append it
-                foreach ($allGroupsAndKeys as &$GroupAndKey) {
-                    if ($GroupAndKey['group'] === $group && $GroupAndKey['key'] === $key) {
-                        $GroupAndKey['text'][$nameParts[0]] = $value;
+                foreach (self::$allGroupsAndKeys as &$groupAndKey) {
+                    if ($groupAndKey['group'] === $groupName && $groupAndKey['key'] === $currentKey) {
+                        $groupAndKey['text'][$locale] = $value;
                         $found = true;
                     }
                 }
 
-                // new translation found
+                // Add this group and key pair to the array
                 if (! $found) {
-                    $allGroupsAndKeys[] = [
-                        'group' => $group,
-                        'key' => $key,
-                        'text' => [$nameParts[0] => $value],
+                    self::$seenCombinations[$groupName][$currentKey] = true;
+
+                    self::$allGroupsAndKeys[] = [
+                        'group' => $groupName,
+                        'key' => $currentKey,
+                        'text' => [$locale => $value],
                     ];
                 }
             }
         }
-
-        return $allGroupsAndKeys;
     }
 }
