@@ -44,20 +44,19 @@ class SynchronizeAction extends Action
 
         // Create new LanguageLines for the groups and keys that don't exist yet
         foreach ($groupsAndKeys as $groupAndKey) {
-            $command?->loudInfo('updateOrCreate: ' . $groupAndKey['group'] . '.' . $groupAndKey['group']);
+            $command?->loudInfo('checking existence: ' . $groupAndKey['group'] . '.' . $groupAndKey['group']);
 
-            $existingItem = LanguageLine::where('group', $groupAndKey['group'])
+            $exists = LanguageLine::where('group', $groupAndKey['group'])
                 ->where('key', $groupAndKey['key'])
-                ->first();
-            if (!$existingItem) {
-                LanguageLine::create([
-                    'group' => $groupAndKey['group'],
-                    'key' => $groupAndKey['key'],
-                    'text' => $groupAndKey['text'],
-                ]);
-            }
+                ->exists();
 
-            $command?->loudInfo('done');
+            if (! $exists) {
+                LanguageLine::create($groupAndKey);
+
+                $command?->loudInfo('exists? no (created new)');
+            } else {
+                $command?->loudInfo('exists? yes');
+            }
         }
 
         $command?->loudInfo('finished synchronize function');
