@@ -93,13 +93,12 @@ class LanguageLineResource extends Resource
     public static function getColumns(): array
     {
         $columns = [
-            TextColumn::make('group')
-                ->label(__('translation-manager::translations.group'))
-                ->searchable(),
-
-            TextColumn::make('key')
-                ->label(__('translation-manager::translations.key'))
-                ->searchable(),
+            TextColumn::make('group_and_key')
+                ->label(__('translation-manager::translations.group') . ' & ' . __('translation-manager::translations.key'))
+                ->searchable(['group', 'key'])
+                ->getStateUsing(function (Model $record) {
+                    return $record->group . '.' . $record->key;
+                }),
 
             TextColumn::make('preview')
                 ->searchable(query: function (Builder $query, string $search): Builder {
