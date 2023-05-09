@@ -1,20 +1,20 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Pages;
+namespace Kenepa\TranslationManager\Pages;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
-use musa11971\FilamentTranslationManager\Resources\LanguageLineResource;
+use Kenepa\TranslationManager\Resources\LanguageLineResource;
 use Spatie\TranslationLoader\LanguageLine;
 
 class QuickTranslate extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string $view = 'filament-translation-manager::quick-translate';
+    protected static string $view = 'translation-manager::quick-translate';
     protected static string $resource = LanguageLineResource::class;
 
     public $selectedLocale = null;
@@ -32,8 +32,8 @@ class QuickTranslate extends Page implements HasForms
             'selectForm' => $this->makeForm()
                 ->schema([
                     Select::make('selectedLocale')
-                        ->options(collect(config('filament-translation-manager.available_locales'))->pluck('code', 'code'))
-                        ->label(__('filament-translation-manager::translations.quick-translate-select-locale'))
+                        ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
+                        ->label(__('translation-manager::translations.quick-translate-select-locale'))
                         ->reactive()
                         ->afterStateUpdated(function ($state) {
                             $this->offset = 0;
@@ -44,7 +44,7 @@ class QuickTranslate extends Page implements HasForms
             'enterForm' => $this->makeForm()
                 ->schema([
                     Textarea::make('enteredTranslation')
-                        ->label(__('filament-translation-manager::translations.quick-translate-enter', ['lang' => $this->selectedLocale]))
+                        ->label(__('translation-manager::translations.quick-translate-enter', ['lang' => $this->selectedLocale]))
                         ->required(),
                 ]),
         ];
@@ -98,6 +98,6 @@ class QuickTranslate extends Page implements HasForms
      */
     protected function getTitle(): string
     {
-        return __('filament-translation-manager::translations.quick-translate');
+        return __('translation-manager::translations.quick-translate');
     }
 }

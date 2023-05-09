@@ -1,25 +1,20 @@
 {
-  "name": "musa11971/filament-translation-manager",
+  "name": "kenepa/translation-manager",
   "description": "Manage your application's translation strings in Filament.",
   "keywords": [
+    "Kenepa",
     "laravel",
-    "localization",
     "filament",
+    "localization",
     "translation"
   ],
-  "homepage": "https://github.com/musa11971/filament-translation-manager",
+  "homepage": "https://github.com/kenape/translation-manager",
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "musa11971\\FilamentTranslationManager\\": "src/"
+      "Kenepa\\TranslationManager\\": "src/"
     }
   },
-  "authors": [
-    {
-      "name": "musa11971",
-      "role": "Maintainer"
-    }
-  ],
   "minimum-stability": "dev",
   "require": {
     "php": "^8.1",
@@ -34,12 +29,12 @@
   "extra": {
     "laravel": {
       "providers": [
-        "musa11971\\FilamentTranslationManager\\FilamentTranslationManagerProvider"
+        "Kenepa\\TranslationManager\\TranslationManagerProvider"
       ]
     }
   },
   "prefer-stable": true,
   "require-dev": {
-    "tightenco/duster": "^1.1"
+    "tightenco/duster": "^2.0"
   }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Helpers;
+namespace Kenepa\TranslationManager\Helpers;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use musa11971\FilamentTranslationManager\Commands\SynchronizeTranslationsCommand;
+use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
 
 class TranslationScanner
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Resources;
+namespace Kenepa\TranslationManager\Resources;
 
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -16,10 +16,10 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
-use musa11971\FilamentTranslationManager\Filters\NotTranslatedFilter;
-use musa11971\FilamentTranslationManager\Pages\QuickTranslate;
-use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
-use musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
+use Kenepa\TranslationManager\Filters\NotTranslatedFilter;
+use Kenepa\TranslationManager\Pages\QuickTranslate;
+use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
+use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
 use Spatie\TranslationLoader\LanguageLine;
 
 class LanguageLineResource extends Resource
@@ -30,12 +30,12 @@ class LanguageLineResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return trans_choice('filament-translation-manager::translations.translation-label', 1);
+        return trans_choice('translation-manager::translations.translation-label', 1);
     }
 
     public static function getPluralLabel(): ?string
     {
-        return trans_choice('filament-translation-manager::translations.translation-label', 2);
+        return trans_choice('translation-manager::translations.translation-label', 2);
     }
 
     public static function form(Form $form): Form
@@ -44,38 +44,38 @@ class LanguageLineResource extends Resource
             ->schema([
                 TextInput::make('group')
                     ->prefixIcon('heroicon-o-tag')
-                    ->disabled(config('filament-translation-manager.disable_key_and_group_editing'))
-                    ->label(__('filament-translation-manager::translations.group'))
+                    ->disabled(config('translation-manager.disable_key_and_group_editing'))
+                    ->label(__('translation-manager::translations.group'))
                     ->required(),
 
                 TextInput::make('key')
                     ->prefixIcon('heroicon-o-key')
-                    ->disabled(config('filament-translation-manager.disable_key_and_group_editing'))
-                    ->label(__('filament-translation-manager::translations.key'))
+                    ->disabled(config('translation-manager.disable_key_and_group_editing'))
+                    ->label(__('translation-manager::translations.key'))
                     ->required(),
 
                 ViewField::make('preview')
-                    ->view('filament-translation-manager::preview-translation')
+                    ->view('translation-manager::preview-translation')
                     ->columnSpan(2),
 
                 Repeater::make('translations')->schema([
                     Select::make('language')
                         ->prefixIcon('heroicon-o-translate')
-                        ->label(__('filament-translation-manager::translations.translation-language'))
-                        ->options(collect(config('filament-translation-manager.available_locales'))->pluck('code', 'code'))
+                        ->label(__('translation-manager::translations.translation-language'))
+                        ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
                         ->required(),
 
                     Textarea::make('text')
-                        ->label(__('filament-translation-manager::translations.translation-text'))
+                        ->label(__('translation-manager::translations.translation-text'))
                         ->required(),
                 ])->columns(2)
-                    ->createItemButtonLabel(__('filament-translation-manager::translations.add-translation-button'))
+                    ->createItemButtonLabel(__('translation-manager::translations.add-translation-button'))
                     ->disableLabel()
                     ->defaultItems(0)
                     ->disableItemMovement()
                     ->grid(2)
                     ->columnSpan(2)
-                    ->maxItems(count(config('filament-translation-manager.available_locales'))),
+                    ->maxItems(count(config('translation-manager.available_locales'))),
             ]);
     }
 
@@ -94,11 +94,11 @@ class LanguageLineResource extends Resource
     {
         $columns = [
             TextColumn::make('group')
-                ->label(__('filament-translation-manager::translations.group'))
+                ->label(__('translation-manager::translations.group'))
                 ->searchable(),
 
             TextColumn::make('key')
-                ->label(__('filament-translation-manager::translations.key'))
+                ->label(__('translation-manager::translations.key'))
                 ->searchable(),
 
             TextColumn::make('preview')
@@ -106,14 +106,14 @@ class LanguageLineResource extends Resource
                     return $query
                         ->where('text', 'like', "%{$search}%");
                 })
-                ->label(__('filament-translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
+                ->label(__('translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
                 ->icon('heroicon-o-translate')
                 ->size('sm')
                 ->sortable(false)
                 ->formatStateUsing(fn ($record): string => static::getTranslationPreview($record, 50)),
         ];
 
-        foreach (config('filament-translation-manager.available_locales') as $locale) {
+        foreach (config('translation-manager.available_locales') as $locale) {
             $localeCode = $locale['code'];
 
             if ($localeCode == config('app.fallback_locale')) {
@@ -166,11 +166,11 @@ class LanguageLineResource extends Resource
 
     protected static function getNavigationLabel(): string
     {
-        return __('filament-translation-manager::translations.translation-navigation-label');
+        return __('translation-manager::translations.translation-navigation-label');
     }
 
     protected static function getNavigationGroup(): ?string
     {
-        return config('filament-translation-manager.navigation_group');
+        return config('translation-manager.navigation_group');
     }
 }

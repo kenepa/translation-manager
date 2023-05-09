@@ -1,6 +1,6 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Filters;
+namespace Kenepa\TranslationManager\Filters;
 
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\Filter;
@@ -13,8 +13,8 @@ class NotTranslatedFilter extends Filter
         return parent::make('not-translated')
             ->form([
                 Select::make('lang')
-                    ->label(__('filament-translation-manager::translations.filter-not-translated'))
-                    ->options(collect(config('filament-translation-manager.available_locales'))->pluck('code', 'code')),
+                    ->label(__('translation-manager::translations.filter-not-translated'))
+                    ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code')),
             ])
             ->query(function (Builder $query, array $data): Builder {
                 return $query

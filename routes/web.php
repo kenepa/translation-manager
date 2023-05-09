@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-if (config('filament-translation-manager.language_switcher')) {
-    $availableCodes = collect(config('filament-translation-manager.available_locales'))
+if (config('translation-manager.language_switcher')) {
+    $availableCodes = collect(config('translation-manager.available_locales'))
         ->pluck('code')
         ->toArray();
 
@@ -13,6 +13,6 @@ if (config('filament-translation-manager.language_switcher')) {
 
             return redirect()->back();
         })->whereIn('code', $availableCodes)
-            ->name('filament-translation-manager.switch');
+            ->name('translation-manager.switch');
     });
 }

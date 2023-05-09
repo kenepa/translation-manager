@@ -1,9 +1,9 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages;
+namespace Kenepa\TranslationManager\Resources\LanguageLineResource\Pages;
 
 use Filament\Resources\Pages\EditRecord;
-use musa11971\FilamentTranslationManager\Resources\LanguageLineResource;
+use Kenepa\TranslationManager\Resources\LanguageLineResource;
 
 class EditLanguageLine extends EditRecord
 {

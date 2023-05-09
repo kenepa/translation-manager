@@ -1,31 +1,25 @@
-![Filament Translation Manager](.github/banner.png)
+# Translation Manager
 
+<a href="https://github.com/kenepa/translation-manager">
+<img style="width: 100%; max-width: 100%;" alt="filament-shield-art" src=".github/banner.png" >
+</a>
 
-## Features
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/kenepa/translation-manager.svg?style=flat-square)](https://packagist.org/packages/kenepa/translation-manager)
+[![Total Downloads](https://img.shields.io/packagist/dt/kenepa/translation-manager.svg?style=flat-square)](https://packagist.org/packages/kenepa/translation-manager)
 
-- Manage translations in your Filament admin dashboard 
-- Preview translations in the current language 
-- Synchronize translations with your language files 
-- (Optional) language switcher feature
-
-## Benefits
-
-- No longer need to rely on developers that have to edit language files
-- Conveniently manage translations without leaving your Filament admin dashboard
-- Preview translations in real-time, allowing you to fine-tune them to your liking
-- Simplify your localization workflow by syncing your translations with your language files 
+Introducing our Filament translation management tool, which allows you to easily manage, preview, and sync translations with your language files all within your Filament admin dashboard. Say goodbye to relying on developers to edit language files and streamline your localization workflow today.
 
 ## Installation
 
-To install Filament Translation Manager, first require the package using Composer:
+You can install the package via composer:
 
 ```bash
-composer require musa11971/filament-translation-manager
+composer require kenepa/translation-manager
 ```
 
 You can run the following command to publish the configuration file:
 ```bash
-php artisan vendor:publish --tag=filament-translation-manager-config
+php artisan vendor:publish --tag=translation-manager-config
 ```
 
 This package uses `spatie/laravel-translation-loader`, publish their migration file using:
@@ -54,7 +48,7 @@ protected $middlewareGroups = [
     'web' => [
         // ... 
         // Add the middleware to the array
-        \musa11971\FilamentTranslationManager\Http\Middleware\SetLanguage::class,
+        \Kenepa\TranslationManager\Http\Middleware\SetLanguage::class,
     ]
 ];
 ```
@@ -65,7 +59,7 @@ Secondly in `config/filament.php`:
     'base' => [
         // ... 
         // Add the middleware to the array
-        \musa11971\FilamentTranslationManager\Http\Middleware\SetLanguage::class,
+        \Kenepa\TranslationManager\Http\Middleware\SetLanguage::class,
     ]
 ]
 ```
@@ -98,13 +92,8 @@ Enable or disable the language switcher feature. This allows users to switch the
 
 ## Usage
 
-Once installed, Filament Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.  
-
+Once installed, the Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.
 
 ## License
 
-Filament Translation Manager is open-sourced software licensed under the MIT license.
-
-## Credits
-
-Filament Translation Manager is created and maintained by [musa11971](https://github.com/musa11971).
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

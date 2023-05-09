@@ -1,17 +1,17 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager;
+namespace Kenepa\TranslationManager;
 
 use Exception;
 use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use musa11971\FilamentTranslationManager\Commands\SynchronizeTranslationsCommand;
-use musa11971\FilamentTranslationManager\Resources\LanguageLineResource;
+use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
+use Kenepa\TranslationManager\Resources\LanguageLineResource;
 use Spatie\LaravelPackageTools\Package;
 
-class FilamentTranslationManagerProvider extends PluginServiceProvider
+class TranslationManagerProvider extends PluginServiceProvider
 {
     /**
      * The resources that the plugin registers.
@@ -27,11 +27,11 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
     ];
 
     /**
-     * Configure the Filament Translation Manager package.
+     * Configure the Translation Manager package.
      */
     public function configurePackage(Package $package): void
     {
-        $package->name('filament-translation-manager')
+        $package->name('translation-manager')
             ->hasCommand(SynchronizeTranslationsCommand::class)
             ->hasViews()
             ->hasConfigFile()
@@ -42,7 +42,7 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
     /**
      * Boot the service provider.
      *
-     * @return FilamentTranslationManagerProvider|void
+     * @return void
      */
     public function boot()
     {
@@ -50,7 +50,7 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
 
         $this->verifyConfig();
         $this->registerLanguageSwitcher();
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'filament-translation-manager');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'translation-manager');
     }
 
     /**
@@ -60,14 +60,14 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
      */
     private function getLanguageSwitcherView(): View
     {
-        $locales = config('filament-translation-manager.available_locales');
+        $locales = config('translation-manager.available_locales');
         $currentLocale = app()->getLocale();
         $currentLanguage = collect($locales)->firstWhere('code', $currentLocale);
 
         $currentLanguageEmoji = $currentLanguage ? $currentLanguage['emoji'] : '🌐';
         $otherLanguages = $locales;
 
-        return view('filament-translation-manager::language-switcher', compact('currentLanguageEmoji', 'otherLanguages'));
+        return view('translation-manager::language-switcher', compact('currentLanguageEmoji', 'otherLanguages'));
     }
 
     /**
@@ -79,7 +79,7 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
      */
     private function verifyConfig()
     {
-        $packageConfig = config('filament-translation-manager');
+        $packageConfig = config('translation-manager');
         $appConfig = config('app');
 
         $packageValidator = Validator::make($packageConfig, [
@@ -108,7 +108,7 @@ class FilamentTranslationManagerProvider extends PluginServiceProvider
      */
     private function registerLanguageSwitcher()
     {
-        if (! config('filament-translation-manager.language_switcher')) {
+        if (! config('translation-manager.language_switcher')) {
             return;
         }
 

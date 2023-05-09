@@ -1,11 +1,11 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Resources\LanguageLineResource\Pages;
+namespace Kenepa\TranslationManager\Resources\LanguageLineResource\Pages;
 
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
-use musa11971\FilamentTranslationManager\Actions\SynchronizeAction;
-use musa11971\FilamentTranslationManager\Resources\LanguageLineResource;
+use Kenepa\TranslationManager\Actions\SynchronizeAction;
+use Kenepa\TranslationManager\Resources\LanguageLineResource;
 
 class ListLanguageLines extends ListRecords
 {
@@ -21,7 +21,7 @@ class ListLanguageLines extends ListRecords
         return [
             Action::make('quick-translate')
                 ->icon('heroicon-o-chevron-right')
-                ->label(__('filament-translation-manager::translations.quick-translate'))
+                ->label(__('translation-manager::translations.quick-translate'))
                 ->url(LanguageLineResource::getUrl('quick-translate')),
 
             SynchronizeAction::make('synchronize')

@@ -1,11 +1,11 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Actions;
+namespace Kenepa\TranslationManager\Actions;
 
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Page;
-use musa11971\FilamentTranslationManager\Commands\SynchronizeTranslationsCommand;
-use musa11971\FilamentTranslationManager\Helpers\TranslationScanner;
+use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
+use Kenepa\TranslationManager\Helpers\TranslationScanner;
 use Spatie\TranslationLoader\LanguageLine;
 
 class SynchronizeAction extends Action
@@ -13,7 +13,7 @@ class SynchronizeAction extends Action
     public static function make(?string $name = null): static
     {
         return parent::make($name)
-            ->label(__('filament-translation-manager::translations.synchronize'))
+            ->label(__('translation-manager::translations.synchronize'))
             ->icon('heroicon-o-chevron-right');
     }
 
@@ -73,10 +73,10 @@ class SynchronizeAction extends Action
     {
         $result = static::synchronize();
 
-        $page->notify('success', __('filament-translation-manager::translations.synchronization-success', ['count' => $result['total_count']]));
+        $page->notify('success', __('translation-manager::translations.synchronization-success', ['count' => $result['total_count']]));
 
         if ($result['deleted_count'] > 0) {
-            $page->notify('success', __('filament-translation-manager::translations.synchronization-deleted', ['count' => $result['deleted_count']]));
+            $page->notify('success', __('translation-manager::translations.synchronization-deleted', ['count' => $result['deleted_count']]));
         }
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace musa11971\FilamentTranslationManager\Commands;
+namespace Kenepa\TranslationManager\Commands;
 
 use Illuminate\Console\Command;
-use musa11971\FilamentTranslationManager\Actions\SynchronizeAction;
+use Kenepa\TranslationManager\Actions\SynchronizeAction;
 
 class SynchronizeTranslationsCommand extends Command
 {
