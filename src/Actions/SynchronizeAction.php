@@ -22,44 +22,39 @@ class SynchronizeAction extends Action
      */
     public static function synchronize(SynchronizeTranslationsCommand $command = null): array
     {
-        $command?->loudInfo('synchronize function called');
+        // extract all translation groups, keys and text
+        $groupsAndKeys = TranslationScanner::scan();
 
         $result = [];
-
-        // Create non-existing groups and keys
-        $scanner = new TranslationScanner($command);
-        $groupsAndKeys = $scanner->start();
-
-        $result['total_count'] = count($groupsAndKeys);
+        $result['total_count'] = 0;
 
         // Find and delete old LanguageLines that no longer exist in the translation files
-        $result['deleted_count'] = LanguageLine::whereNotIn('group', array_column($groupsAndKeys, 'group'))
+        $result['deleted_count'] = LanguageLine::query()
+            ->whereNotIn('group', array_column($groupsAndKeys, 'group'))
             ->orWhereNotIn('key', array_column($groupsAndKeys, 'key'))
             ->delete();
 
-        $command?->loudInfo('deleted old languagelines');
-
-        $command?->loudInfo('found ' . $result['total_count'] . ' total language lines');
-        $command?->loudInfo('deleted ' . $result['deleted_count'] . ' unused ones');
-
         // Create new LanguageLines for the groups and keys that don't exist yet
         foreach ($groupsAndKeys as $groupAndKey) {
-            $command?->loudInfo('checking existence: ' . $groupAndKey['group'] . '.' . $groupAndKey['group']);
+            $startTime = microtime(true);
 
-            $exists = LanguageLine::where('group', $groupAndKey['group'])
+            $existingItem = LanguageLine::where('group', $groupAndKey['group'])
                 ->where('key', $groupAndKey['key'])
-                ->exists();
+                ->first();
 
-            if (! $exists) {
-                LanguageLine::create($groupAndKey);
+            if (! $existingItem) {
+                LanguageLine::create([
+                    'group' => $groupAndKey['group'],
+                    'key' => $groupAndKey['key'],
+                    'text' => $groupAndKey['text'],
+                ]);
 
-                $command?->loudInfo('exists? no (created new)');
-            } else {
-                $command?->loudInfo('exists? yes');
+                $result['total_count'] += 1;
+
+                $runTime = number_format((microtime(true) - $startTime) * 1000, 2);
+                $command?->components()->twoColumnDetail($groupAndKey['group'] . '.' . $groupAndKey['key'], "<fg=gray>{$runTime} ms</> <fg=green;options=bold>DONE</>");
             }
         }
-
-        $command?->loudInfo('finished synchronize function');
 
         return $result;
     }

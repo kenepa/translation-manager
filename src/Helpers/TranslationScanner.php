@@ -2,107 +2,57 @@
 
 namespace Kenepa\TranslationManager\Helpers;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
 
 class TranslationScanner
 {
-    private ?Command $command;
-
-    public function __construct(SynchronizeTranslationsCommand $command = null)
-    {
-        $this->command = $command;
-    }
-
     /**
      * Starts the translation scanning process.
      *
      * @return array An array containing all translation groups and keys found in the application.
      */
-    public function start(): array
+    public static function scan(): array
     {
-        $this->command?->loudInfo('starting scanner');
-
-        $files = File::allFiles(lang_path());
-
-        $this->command?->loudInfo('found files count: ' . count($files));
-
         $allGroupsAndKeys = [];
-        $seenCombinations = [];
+        $files = File::allFiles(lang_path());
 
         // Loop through all groups
         foreach ($files as $file) {
-            $this->command?->loudInfo('looping for file ' . $file->getRelativePathname());
-
-            $name = $file->getRelativePathname();
-
-            // Remove the .php extension
-            $name = Str::replace('.php', '', $name);
-
             // Remove the first part (e.g. nl)
-            $nameParts = explode(DIRECTORY_SEPARATOR, $name);
+            $nameParts = explode(DIRECTORY_SEPARATOR, $file->getRelativePathname());
 
             // TODO: add support for vendor translations
             if ($nameParts[0] == 'vendor') {
-                $this->command?->loudInfo('skipped vendor: ' . $name);
-
                 continue;
             }
 
-            unset($nameParts[0]);
-            $name = implode(DIRECTORY_SEPARATOR, $nameParts);
+            // load the dat from the file
+            $data = require $file;
 
-            // Traverse the array keys in this group
-            $groupArray = trans($name, [], config('app.fallback_locale'));
+            foreach ($data as $key => $value) {
+                $found = false;
+                $group = Str::replace('.php', '', $nameParts[1]);
 
-            if (! is_array($groupArray)) {
-                $this->command?->loudInfo('skipped non-array: ' . $name);
-
-                continue;
-            }
-
-            $this->traverseArray($groupArray, $seenCombinations, $allGroupsAndKeys, $name);
-        }
-
-        $this->command?->loudInfo('scanner done');
-
-        return $allGroupsAndKeys;
-    }
-
-    /**
-     * Recursively traverses an array and adds all keys to the `$allGroupsAndKeys` array.
-     *
-     * @param  array  $array The array to traverse.
-     * @param  array  $allGroupsAndKeys The array to add the keys to.
-     * @param  string  $groupName The name of the translation group.
-     * @param  string|null  $parentKey The parent key path, if applicable.
-     */
-    private function traverseArray($array, &$seenCombinations, &$allGroupsAndKeys, $groupName, $parentKey = null): void
-    {
-        foreach ($array as $key => $value) {
-            $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
-
-            if (is_array($value)) {
-                $this->traverseArray($value, $seenCombinations, $allGroupsAndKeys, $groupName, $currentKey);
-            } else {
-                // Skip if this group and key pair has already been added
-                if (isset($seenCombinations[$groupName][$currentKey])) {
-                    continue;
+                // check if the translation is already present and append it
+                foreach ($allGroupsAndKeys as &$GroupAndKey) {
+                    if ($GroupAndKey['group'] === $group && $GroupAndKey['key'] === $key) {
+                        $GroupAndKey['text'][$nameParts[0]] = $value;
+                        $found = true;
+                    }
                 }
 
-                // Add this group and key pair to the array
-                $seenCombinations[$groupName][$currentKey] = true;
-
-                $this->command?->loudInfo('added ' . $groupName . '.' . $currentKey);
-
-                $allGroupsAndKeys[] = [
-                    'group' => $groupName,
-                    'key' => $currentKey,
-                    'text' => [],
-                ];
+                // new translation found
+                if (! $found) {
+                    $allGroupsAndKeys[] = [
+                        'group' => $group,
+                        'key' => $key,
+                        'text' => [$nameParts[0] => $value],
+                    ];
+                }
             }
         }
+
+        return $allGroupsAndKeys;
     }
 }
