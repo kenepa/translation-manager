@@ -21,7 +21,7 @@ return [
     | Disable key and group editing
     |--------------------------------------------------------------------------
     |
-    | Whether editing the key and group values is disabled. By default, this is false
+    | Whether editing the key and group values is disabled. By default, this is true
     | because these values are automatically added by the synchronization process.
     |
     */
