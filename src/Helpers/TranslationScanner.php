@@ -51,7 +51,7 @@ class TranslationScanner
      * @param  string  $groupName The name of the translation group.
      * @param  string|null  $parentKey The parent key path, if applicable.
      */
-    private static function parseTranslation($translationArray, $locale, $groupName, $parentKey = null): void
+    private static function parseTranslation(array $translationArray, string $locale, string $groupName, string|null $parentKey = null): void
     {
         foreach ($translationArray as $key => $value) {
             $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
@@ -61,7 +61,7 @@ class TranslationScanner
             } else {
                 $found = false;
 
-                // check if the translation is already present and append it
+                // Check if the translation is already present and append it
                 foreach (self::$allGroupsAndKeys as &$groupAndKey) {
                     if ($groupAndKey['group'] === $groupName && $groupAndKey['key'] === $currentKey) {
                         $groupAndKey['text'][$locale] = $value;

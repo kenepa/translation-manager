@@ -22,7 +22,7 @@ class SynchronizeAction extends Action
      */
     public static function synchronize(SynchronizeTranslationsCommand $command = null): array
     {
-        // extract all translation groups, keys and text
+        // Extract all translation groups, keys and text
         $groupsAndKeys = TranslationScanner::scan();
 
         $result = [];
