@@ -12,7 +12,7 @@ class SynchronizeTranslationsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translations:synchronize {--l|loud}';
+    protected $signature = 'translations:synchronize';
 
     /**
      * The console command description.
@@ -21,34 +21,29 @@ class SynchronizeTranslationsCommand extends Command
      */
     protected $description = 'Synchronize all application translations';
 
+    public function components()
+    {
+        return $this->components;
+    }
+
     /**
      * Execute the console command.
      */
     public function handle(): void
     {
         $startTime = microtime(true);
-        $this->info('Synchronization busy...');
+        $this->components->info('Starting synchronization.');
 
         $result = SynchronizeAction::synchronize($this);
+        $this->newLine();
 
-        $elapsedSecs = round(microtime(true) - $startTime, 2);
-        $this->info('Synchronization success! (' . $elapsedSecs . 's)');
-        $this->loudInfo('  - total: ' . $result['total_count']);
-        $this->loudInfo('  - deleted: ' . $result['deleted_count']);
-    }
+        $this->components->bulletList([
+            'synced translations: ' . $result['total_count'],
+            'purged translations: ' . $result['deleted_count'],
+        ]);
+        $this->newLine();
 
-    /**
-     * Prints the info message if loud option is enabled.
-     *
-     * @return void
-     */
-    public function loudInfo($message)
-    {
-        if (! $this->option('loud')) {
-            return;
-        }
-
-        $prefix = '[' . now()->format('H:i:s') . '] ! ';
-        $this->info($prefix . $message);
+        $runTime = number_format((microtime(true) - $startTime) * 1000, 0);
+        $this->components->info('Synchronization success! (' . $runTime . 'ms)');
     }
 }
