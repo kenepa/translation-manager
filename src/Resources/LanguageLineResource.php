@@ -115,10 +115,6 @@ class LanguageLineResource extends Resource
         foreach (config('translation-manager.available_locales') as $locale) {
             $localeCode = $locale['code'];
 
-            if ($localeCode == config('app.fallback_locale')) {
-                continue;
-            }
-
             $columns[] = IconColumn::make($localeCode)
                 ->label(strtoupper($localeCode))
                 ->searchable(false)

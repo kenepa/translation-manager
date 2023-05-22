@@ -84,9 +84,9 @@ Gate::define('use-translation-manager', function (?User $user) {
 Determines which locales your application supports. For example:
 ```php
 'available_locales' => [
-    ['code' => 'en', 'name' => 'English', 'emoji' => '🇬🇧'],
-    ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱'],
-    ['code' => 'de', 'name' => 'Deutsch', 'emoji' => '🇩🇪']
+    ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
+    ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'],
+    ['code' => 'de', 'name' => 'Deutsch', 'flag' => 'de']
 ]
 ```
 

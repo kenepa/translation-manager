@@ -8,12 +8,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | The available application locales that can be used.
+    | For flag codes, please refer to https://flagicons.lipis.dev/ (e.g. nl for Netherlands).
     |
     */
 
     'available_locales' => [
-        ['code' => 'en', 'name' => 'English', 'emoji' => '🇬🇧'],
-        // ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱'],
+        ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
+        // ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'] ,
     ],
 
     /*
