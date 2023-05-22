@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13b18eea7440a46e6e7c2b71a320fbda",
+    "content-hash": "7e96996f6e767bf389b474edb19c4562",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -4149,6 +4149,60 @@
             "time": "2023-02-07T10:08:04+00:00"
         },
         {
+            "name": "stijnvanouplines/blade-country-flags",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stijnvanouplines/blade-country-flags.git",
+                "reference": "1b7d5a67d25643f70b939582f6b56c54f12070f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stijnvanouplines/blade-country-flags/zipball/1b7d5a67d25643f70b939582f6b56c54f12070f3",
+                "reference": "1b7d5a67d25643f70b939582f6b56c54f12070f3",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.0",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.18|^8.0",
+                "pestphp/pest": "^1.4",
+                "spatie/pest-plugin-snapshots": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "StijnVanouplines\\BladeCountryFlags\\BladeCountryFlagsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "StijnVanouplines\\BladeCountryFlags\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A package to easily make use of country flags in your Laravel Blade views.",
+            "homepage": "https://github.com/stijnvanouplines/blade-country-flags",
+            "keywords": [
+                "blade",
+                "country flags",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/stijnvanouplines/blade-country-flags/issues",
+                "source": "https://github.com/stijnvanouplines/blade-country-flags/tree/1.0.3"
+            },
+            "time": "2023-02-27T08:59:37+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v6.2.10",
             "source": {
@@ -6529,5 +6583,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

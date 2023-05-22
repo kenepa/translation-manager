@@ -12,8 +12,8 @@ return [
     */
 
     'available_locales' => [
-        ['code' => 'en', 'name' => 'English', 'emoji' => '🇬🇧', 'flag' => 'gb'],
-        // ['code' => 'nl', 'name' => 'Nederlands', 'emoji' => '🇳🇱', 'flag' => 'nl'] ,
+        ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
+        // ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'] ,
     ],
 
     /*
