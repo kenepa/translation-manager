@@ -30,6 +30,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Emoji usage
+    |--------------------------------------------------------------------------
+    |
+    | Set this value true to use flag icons instead of emojis.
+    | stijnvanouplines/blade-country-flags package is required for this change.
+    |
+    */
+
+    'use_emoji' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Language Switcher
     |--------------------------------------------------------------------------
     |

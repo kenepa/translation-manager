@@ -21,7 +21,8 @@
     "filament/filament": "^2.17",
     "filament/notifications": "^2.17",
     "spatie/laravel-translation-loader": "^2.7",
-    "spatie/laravel-package-tools": "^1.10"
+    "spatie/laravel-package-tools": "^1.10",
+    "stijnvanouplines/blade-country-flags": "^1.0"
   },
   "config": {
     "sort-packages": true

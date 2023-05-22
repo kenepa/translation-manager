@@ -11,7 +11,13 @@
     }">
     <button class="ml-4" id="filament-language-switcher" class="block" x-on:click="toggle">
         <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 bg-cover bg-center dark:bg-gray-900">
-            <span class="text-xl">{{ $currentLanguageEmoji }}</span>
+            <span class="text-xl">
+              @if(config('translation-manager.use_emoji'))
+              {{ $currentLanguageEmoji }}
+              @else
+                <x-flag-1x1-{{ $currentLocale }} />
+              @endif
+            </span>
         </div>
     </button>
 
@@ -19,8 +25,13 @@
         <div class="filament-dropdown-list p-1">
             @foreach ($otherLanguages as $language)
             <a class="filament-dropdown-list-item filament-dropdown-item group flex w-full items-center whitespace-nowrap rounded-md p-2 text-sm outline-none hover:text-white focus:text-white hover:bg-primary-500 focus:bg-primary-500" href="{{ route('translation-manager.switch', ['code' => $language['code']]) }}">
-                <span class="filament-dropdown-list-item-label truncate w-full text-start">
-                    {{ $language['emoji'] }} {{ $language['name'] }}
+                <span class="filament-dropdown-list-item-label truncate w-full text-start flex justify-content-start gap-1">
+                    @if(config('translation-manager.use_emoji'))
+                      <span>{{ $language['emoji'] }} </span>
+                    @else
+                      {{ svg('flag-4x3-'.$language['flag'], 'w-6 h-6') }}
+                    @endif
+                    <span>{{ $language['name'] }}</span>
                 </span>
             </a>
             @endforeach
