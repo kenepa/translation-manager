@@ -8,6 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | The available application locales that can be used.
+    | For flag codes, please refer to https://flagicons.lipis.dev/ (e.g. nl for Netherlands).
     |
     */
 
@@ -27,18 +28,6 @@ return [
     */
 
     'disable_key_and_group_editing' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Emoji usage
-    |--------------------------------------------------------------------------
-    |
-    | Set this value true to use flag icons instead of emojis.
-    | stijnvanouplines/blade-country-flags package is required for this change.
-    |
-    */
-
-    'use_emoji' => false,
 
     /*
     |--------------------------------------------------------------------------
