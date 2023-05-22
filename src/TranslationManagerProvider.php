@@ -67,7 +67,7 @@ class TranslationManagerProvider extends PluginServiceProvider
         $currentLanguageEmoji = $currentLanguage ? $currentLanguage['emoji'] : '🌐';
         $otherLanguages = $locales;
 
-        return view('translation-manager::language-switcher', compact('currentLanguageEmoji', 'otherLanguages'));
+        return view('translation-manager::language-switcher', compact('currentLanguageEmoji', 'otherLanguages', 'currentLanguage'));
     }
 
     /**
