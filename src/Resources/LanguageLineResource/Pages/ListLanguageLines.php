@@ -28,4 +28,9 @@ class ListLanguageLines extends ListRecords
                 ->action('synchronize'),
         ];
     }
+
+    protected function getTableRecordsPerPageSelectOptions(): array
+    {
+        return config('translation-manager.list_records_per_page', []);
+    }
 }
