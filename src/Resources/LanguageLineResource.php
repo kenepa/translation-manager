@@ -159,6 +159,15 @@ class LanguageLineResource extends Resource
         return Gate::allows('use-translation-manager');
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        if (! is_array(config('translation-manager.hide_translation_groups')) || count(config('translation-manager.hide_translation_groups')) == 0) {
+          return parent::getEloquentQuery()->whereNotIn('group', config('translation-manager.hide_translation_groups'));
+        }
+
+        return parent::getEloquentQuery();
+    }
+
     protected static function getNavigationLabel(): string
     {
         return __('translation-manager::translations.translation-navigation-label');
@@ -167,13 +176,5 @@ class LanguageLineResource extends Resource
     protected static function getNavigationGroup(): ?string
     {
         return config('translation-manager.navigation_group');
-    }
-
-    public static function getEloquentQuery(): Builder
-    {
-        if(!is_array(config('translation-manager.hide_translation_groups')) || count(config('translation-manager.hide_translation_groups')) == 0){
-          return parent::getEloquentQuery()->whereNotIn('group',config('translation-manager.hide_translation_groups'));
-        }
-        return parent::getEloquentQuery();
     }
 }
