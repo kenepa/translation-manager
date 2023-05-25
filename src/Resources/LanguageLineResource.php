@@ -168,4 +168,12 @@ class LanguageLineResource extends Resource
     {
         return config('translation-manager.navigation_group');
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        if(!is_array(config('translation-manager.hide_translation_groups')) || count(config('translation-manager.hide_translation_groups')) == 0){
+          return parent::getEloquentQuery()->whereNotIn('group',config('translation-manager.hide_translation_groups'));
+        }
+        return parent::getEloquentQuery();
+    }
 }

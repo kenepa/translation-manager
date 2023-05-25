@@ -50,5 +50,17 @@ return [
     */
 
     'navigation_group' => null,
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Hide translation groups
+    |--------------------------------------------------------------------------
+    |
+    | Hide selected translation groups from the listing. This is useful if you have
+    | multiple translation resources.
+    |
+    */
+
+    'hide_translation_groups' => [],
 
 ];
