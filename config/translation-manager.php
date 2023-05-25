@@ -16,7 +16,7 @@ return [
         ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
         // ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'] ,
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Disable key and group editing
