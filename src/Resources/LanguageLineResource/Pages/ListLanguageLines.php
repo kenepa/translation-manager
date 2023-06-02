@@ -31,6 +31,6 @@ class ListLanguageLines extends ListRecords
 
     protected function getTableRecordsPerPageSelectOptions(): array
     {
-        return config('translation-manager.list_records_per_page', []);
+        return [10, 25, 50];
     }
 }
