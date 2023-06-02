@@ -50,5 +50,4 @@ return [
     */
 
     'navigation_group' => null,
-
 ];

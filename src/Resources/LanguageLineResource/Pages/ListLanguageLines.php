@@ -28,4 +28,9 @@ class ListLanguageLines extends ListRecords
                 ->action('synchronize'),
         ];
     }
+
+    protected function getTableRecordsPerPageSelectOptions(): array
+    {
+        return [10, 25, 50];
+    }
 }
