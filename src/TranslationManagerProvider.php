@@ -10,8 +10,9 @@ use Illuminate\View\View;
 use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class TranslationManagerProvider extends PluginServiceProvider
+class TranslationManagerProvider extends PackageServiceProvider
 {
     /**
      * The resources that the plugin registers.
@@ -20,10 +21,6 @@ class TranslationManagerProvider extends PluginServiceProvider
      */
     protected array $resources = [
         LanguageLineResource::class,
-    ];
-
-    protected array $pages = [
-
     ];
 
     /**
@@ -44,29 +41,13 @@ class TranslationManagerProvider extends PluginServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function packageBooted()
     {
-        parent::boot();
+        parent::packageBooted();
+
 
         $this->verifyConfig();
-        $this->registerLanguageSwitcher();
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'translation-manager');
-    }
-
-    /**
-     * Returns a View object that renders the language switcher component.
-     *
-     * @return \Illuminate\Contracts\View\View The View object that renders the language switcher component.
-     */
-    private function getLanguageSwitcherView(): View
-    {
-        $locales = config('translation-manager.available_locales');
-        $currentLocale = app()->getLocale();
-        $currentLanguage = collect($locales)->firstWhere('code', $currentLocale);
-
-        $otherLanguages = $locales;
-
-        return view('translation-manager::language-switcher', compact('otherLanguages', 'currentLanguage'));
     }
 
     /**
@@ -100,22 +81,5 @@ class TranslationManagerProvider extends PluginServiceProvider
         }
     }
 
-    /**
-     * Register the language switcher view, if enabled.
-     *
-     * @return void
-     */
-    private function registerLanguageSwitcher()
-    {
-        if (! config('translation-manager.language_switcher')) {
-            return;
-        }
 
-        Filament::serving(function () {
-            Filament::registerRenderHook(
-                'global-search.end',
-                fn (): View => $this->getLanguageSwitcherView()
-            );
-        });
-    }
 }

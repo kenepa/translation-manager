@@ -1,7 +1,7 @@
 # Translation Manager
 
 <a href="https://github.com/kenepa/translation-manager">
-<img style="width: 100%; max-width: 100%;" alt="filament-shield-art" src="https://raw.githubusercontent.com/kenepa/Kenepa/main/art/TranslationManager/filament-translation-manager-banner.png" >
+<img class="filament-hidden" style="width: 100%; max-width: 100%;" alt="filament-translation-manager-art" src="https://raw.githubusercontent.com/kenepa/Kenepa/main/art/TranslationManager/filament-translation-manager-banner.png" >
 </a>
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/kenepa/translation-manager.svg?style=flat-square)](https://packagist.org/packages/kenepa/translation-manager)
@@ -10,7 +10,7 @@
 Introducing our Filament translation management tool, which allows you to easily manage, preview, and sync translations with your language files all within your Filament admin dashboard. Say goodbye to relying on developers to edit language files and streamline your localization workflow today.
 
 <a href="https://github.com/kenepa/translation-manager">
-<img style="width: 100%; max-width: 100%;" alt="filament-shield-art" src="https://raw.githubusercontent.com/kenepa/Kenepa/main/art/TranslationManager/translation-manager-promo.png" >
+<img style="width: 100%; max-width: 100%;" alt="filament-translation-manager-art" src="https://raw.githubusercontent.com/kenepa/Kenepa/main/art/TranslationManager/translation-manager-promo.png" >
 </a>
 
 ## Installation

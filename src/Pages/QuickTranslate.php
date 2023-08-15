@@ -17,6 +17,10 @@ class QuickTranslate extends Page implements HasForms
     protected static string $view = 'translation-manager::quick-translate';
     protected static string $resource = LanguageLineResource::class;
 
+    protected static ?string $navigationGroup = 'Settings';
+
+    protected static ?string $navigationIcon = 'heroicon-o-bolt';
+
     public $selectedLocale = null;
     public $offset = 0;
     public $record;
@@ -96,7 +100,7 @@ class QuickTranslate extends Page implements HasForms
     /**
      * Returns the title of the page.
      */
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('translation-manager::translations.quick-translate');
     }

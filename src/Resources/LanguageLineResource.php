@@ -7,9 +7,9 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
-use Filament\Resources\Form;
+use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -25,7 +25,7 @@ use Spatie\TranslationLoader\LanguageLine;
 class LanguageLineResource extends Resource
 {
     protected static ?string $model = LanguageLine::class;
-    protected static ?string $navigationIcon = 'heroicon-o-globe';
+    protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
     protected static ?string $slug = 'translation-manager';
 
     public static function getLabel(): ?string
@@ -60,7 +60,7 @@ class LanguageLineResource extends Resource
 
                 Repeater::make('translations')->schema([
                     Select::make('language')
-                        ->prefixIcon('heroicon-o-translate')
+                        ->prefixIcon('heroicon-o-language')
                         ->label(__('translation-manager::translations.translation-language'))
                         ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
                         ->required(),
@@ -106,7 +106,7 @@ class LanguageLineResource extends Resource
                         ->where('text', 'like', "%{$search}%");
                 })
                 ->label(__('translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
-                ->icon('heroicon-o-translate')
+                ->icon('heroicon-o-language')
                 ->size('sm')
                 ->sortable(false)
                 ->formatStateUsing(fn ($record): string => static::getTranslationPreview($record, 50)),
@@ -159,12 +159,12 @@ class LanguageLineResource extends Resource
         return Gate::allows('use-translation-manager');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('translation-manager::translations.translation-navigation-label');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return config('translation-manager.navigation_group');
     }

@@ -2,7 +2,7 @@
 
 namespace Kenepa\TranslationManager\Resources\LanguageLineResource\Pages;
 
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Kenepa\TranslationManager\Actions\SynchronizeAction;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
@@ -20,7 +20,7 @@ class ListLanguageLines extends ListRecords
     {
         return [
             Action::make('quick-translate')
-                ->icon('heroicon-o-chevron-right')
+                ->icon('heroicon-o-bolt')
                 ->label(__('translation-manager::translations.quick-translate'))
                 ->url(LanguageLineResource::getUrl('quick-translate')),
 
