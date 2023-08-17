@@ -17,15 +17,21 @@ class QuickTranslate extends Page implements HasForms
     protected static string $view = 'translation-manager::quick-translate';
     protected static string $resource = LanguageLineResource::class;
 
-    protected static ?string $navigationGroup = 'Settings';
-
-    protected static ?string $navigationIcon = 'heroicon-o-bolt';
-
     public $selectedLocale = null;
     public $offset = 0;
     public $record;
     public $totalLanguageLines;
     public $enteredTranslation;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return config('translation-manager.navigation_group');
+    }
+
+    public static function getNavigationIcon(): ?string
+    {
+        return 'heroicon-o-bolt';
+    }
 
     /**
      * Returns an array containing two forms for quick translation of content.

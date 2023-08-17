@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class NotTranslatedFilter extends Filter
 {
-    public static function make(?string $name = null): static
+    public static function make(string $name = null): static
     {
         return parent::make('not-translated')
             ->form([

@@ -17,6 +17,13 @@ Introducing our Filament translation management tool, which allows you to easily
 
 You can install the package via composer:
 
+Install via Composer. This will download the package and [Laravel Excel](https://laravel-excel.com/).
+
+| Plugin Version | Filament Version | PHP Version |
+|----------------|-----------------|-------------|
+| <= 3.x         | 2.x   | \> 8.0      |
+| 4.x            | 3.x             | \> 8.1      |
+
 ```bash
 composer require kenepa/translation-manager
 ```
@@ -44,29 +51,23 @@ Schema::create('language_lines', function (Blueprint $table) {
 
 Finally, run the migration.
 
-## (Optional) Enable the middleware
-If you want to make use of the language switcher, you have to enable the middleware.  
-First in `app/Http/Kernel.php` under the 'web' middleware group:  
+## Register the plugin with a panel
+
 ```php
-protected $middlewareGroups = [
-    'web' => [
-        // ... 
-        // Add the middleware to the array
-        \Kenepa\TranslationManager\Http\Middleware\SetLanguage::class,
-    ]
-];
+use Kenepa\ResourceLock\ResourceLockPlugin;
+use Filament\Panel;
+ 
+class AdminPanelProvider extends PanelProvider
+{
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            // ...
+            ->plugin(TranslationManagerPlugin::make());
+    }
+}
 ```
-Secondly in `config/filament.php`:
-```php
-'middleware' => [
-    'auth' => [/* ... */],
-    'base' => [
-        // ... 
-        // Add the middleware to the array
-        \Kenepa\TranslationManager\Http\Middleware\SetLanguage::class,
-    ]
-]
-```
+
 
 ## Authorization
 

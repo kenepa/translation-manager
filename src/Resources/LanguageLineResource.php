@@ -3,16 +3,18 @@
 namespace Kenepa\TranslationManager\Resources;
 
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
@@ -56,26 +58,29 @@ class LanguageLineResource extends Resource
 
                 ViewField::make('preview')
                     ->view('translation-manager::preview-translation')
+                    ->disabled()
                     ->columnSpan(2),
 
-                Repeater::make('translations')->schema([
-                    Select::make('language')
-                        ->prefixIcon('heroicon-o-language')
-                        ->label(__('translation-manager::translations.translation-language'))
-                        ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
-                        ->required(),
+                Section::make('Translations')->schema([
+                    Repeater::make('translations')->schema([
+                        Select::make('language')
+                            ->prefixIcon('heroicon-o-language')
+                            ->label(__('translation-manager::translations.translation-language'))
+                            ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
+                            ->required(),
 
-                    Textarea::make('text')
-                        ->label(__('translation-manager::translations.translation-text'))
-                        ->required(),
-                ])->columns(2)
-                    ->createItemButtonLabel(__('translation-manager::translations.add-translation-button'))
-                    ->disableLabel()
-                    ->defaultItems(0)
-                    ->disableItemMovement()
-                    ->grid(2)
-                    ->columnSpan(2)
-                    ->maxItems(count(config('translation-manager.available_locales'))),
+                        Textarea::make('text')
+                            ->label(__('translation-manager::translations.translation-text'))
+                            ->required(),
+                    ])->columns(2)
+                        ->addActionLabel(__('translation-manager::translations.add-translation-button'))
+                        ->hiddenLabel()
+                        ->defaultItems(0)
+                        ->reorderable(false)
+                        ->grid(2)
+                        ->columnSpan(2)
+                        ->maxItems(count(config('translation-manager.available_locales'))),
+                ]),
             ]);
     }
 
@@ -92,6 +97,7 @@ class LanguageLineResource extends Resource
 
     public static function getColumns(): array
     {
+
         $columns = [
             TextColumn::make('group_and_key')
                 ->label(__('translation-manager::translations.group') . ' & ' . __('translation-manager::translations.key'))
@@ -100,16 +106,14 @@ class LanguageLineResource extends Resource
                     return $record->group . '.' . $record->key;
                 }),
 
-            TextColumn::make('preview')
+            ViewColumn::make('preview')
+                ->view('translation-manager::preview-column')
                 ->searchable(query: function (Builder $query, string $search): Builder {
                     return $query
                         ->where('text', 'like', "%{$search}%");
                 })
                 ->label(__('translation-manager::translations.preview-in-your-lang', ['lang' => app()->getLocale()]))
-                ->icon('heroicon-o-language')
-                ->size('sm')
-                ->sortable(false)
-                ->formatStateUsing(fn ($record): string => static::getTranslationPreview($record, 50)),
+                ->sortable(false),
         ];
 
         foreach (config('translation-manager.available_locales') as $locale) {
@@ -135,18 +139,6 @@ class LanguageLineResource extends Resource
             'edit' => EditLanguageLine::route('/{record}/edit'),
             'quick-translate' => QuickTranslate::route('/quick-translate'),
         ];
-    }
-
-    public static function getTranslationPreview($record, $maxLength = null)
-    {
-        $transParameter = "{$record->group}.{$record->key}";
-        $translated = trans($transParameter);
-
-        if ($maxLength) {
-            $translated = (strlen($translated) > $maxLength) ? substr($translated, 0, $maxLength) . '...' : $translated;
-        }
-
-        return $translated;
     }
 
     public static function canViewAny(): bool

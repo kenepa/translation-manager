@@ -3,10 +3,7 @@
 namespace Kenepa\TranslationManager;
 
 use Exception;
-use Filament\Facades\Filament;
-use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
 use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
 use Spatie\LaravelPackageTools\Package;
@@ -45,7 +42,6 @@ class TranslationManagerProvider extends PackageServiceProvider
     {
         parent::packageBooted();
 
-
         $this->verifyConfig();
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'translation-manager');
     }
@@ -80,6 +76,4 @@ class TranslationManagerProvider extends PackageServiceProvider
             throw new Exception('Config file is not valid. ' . $messages->first());
         }
     }
-
-
 }

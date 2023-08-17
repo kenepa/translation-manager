@@ -3,9 +3,9 @@
 namespace Kenepa\TranslationManager;
 
 use Filament\Contracts\Plugin;
-use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\View\View;
+use Kenepa\TranslationManager\Http\Middleware\SetLanguage;
 use Kenepa\TranslationManager\Pages\QuickTranslate;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
 
@@ -25,18 +25,23 @@ class TranslationManagerPlugin implements Plugin
     {
         $panel
             ->resources([
-                LanguageLineResource::class
+                LanguageLineResource::class,
             ])
             ->pages([
-                QuickTranslate::class
+                QuickTranslate::class,
             ]);
 
         if (config('translation-manager.language_switcher')) {
             $panel->renderHook(
-                'panels::global-search.end',
+                config('translation-manager.language_switcher_render_hook'),
                 fn (): View => $this->getLanguageSwitcherView()
             );
+
+            $panel->authMiddleware([
+                SetLanguage::class,
+            ]);
         }
+
     }
 
     public function boot(Panel $panel): void
@@ -59,5 +64,4 @@ class TranslationManagerPlugin implements Plugin
 
         return view('translation-manager::language-switcher', compact('otherLanguages', 'currentLanguage'));
     }
-
 }

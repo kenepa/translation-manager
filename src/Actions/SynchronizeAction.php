@@ -11,7 +11,7 @@ use Spatie\TranslationLoader\LanguageLine;
 
 class SynchronizeAction extends Action
 {
-    public static function make(?string $name = null): static
+    public static function make(string $name = null): static
     {
         return parent::make($name)
             ->label(__('translation-manager::translations.synchronize'))
@@ -72,7 +72,6 @@ class SynchronizeAction extends Action
             ->icon('heroicon-o-check-circle')
             ->iconColor('success')
             ->send();
-
 
         if ($result['deleted_count'] > 0) {
             Notification::make()

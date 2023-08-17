@@ -16,6 +16,18 @@ class ListLanguageLines extends ListRecords
         SynchronizeAction::run($this);
     }
 
+    public function getTranslationPreview($record, $maxLength = null)
+    {
+        $transParameter = "{$record->group}.{$record->key}";
+        $translated = trans($transParameter);
+
+        if ($maxLength) {
+            $translated = (strlen($translated) > $maxLength) ? substr($translated, 0, $maxLength) . '...' : $translated;
+        }
+
+        return $translated;
+    }
+
     protected function getActions(): array
     {
         return [
@@ -25,7 +37,7 @@ class ListLanguageLines extends ListRecords
                 ->url(LanguageLineResource::getUrl('quick-translate')),
 
             SynchronizeAction::make('synchronize')
-                ->action('synchronize'),
+                ->action('synchronize')->tooltip('oke'),
         ];
     }
 
