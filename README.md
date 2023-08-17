@@ -17,7 +17,7 @@ Introducing our Filament translation management tool, which allows you to easily
 
 You can install the package via composer:
 
-Install via Composer. This will download the package and [Laravel Excel](https://laravel-excel.com/).
+Install via Composer.
 
 | Plugin Version | Filament Version | PHP Version |
 |----------------|-----------------|-------------|
