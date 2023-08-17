@@ -40,6 +40,15 @@ return [
 
     'language_switcher' => true,
 
+    /**
+    |--------------------------------------------------------------------------
+     |
+     | Determines the render hook for the language switcher.
+     | Available render hooks: https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks
+     |
+     */
+    'language_switcher_render_hook' => 'panels::user-menu.before',
+
     /*
     |--------------------------------------------------------------------------
     | Navigation Group
@@ -50,4 +59,5 @@ return [
     */
 
     'navigation_group' => null,
+
 ];

@@ -2,7 +2,8 @@
 
 namespace Kenepa\TranslationManager\Actions;
 
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Kenepa\TranslationManager\Commands\SynchronizeTranslationsCommand;
 use Kenepa\TranslationManager\Helpers\TranslationScanner;
@@ -10,11 +11,11 @@ use Spatie\TranslationLoader\LanguageLine;
 
 class SynchronizeAction extends Action
 {
-    public static function make(?string $name = null): static
+    public static function make(string $name = null): static
     {
         return parent::make($name)
             ->label(__('translation-manager::translations.synchronize'))
-            ->icon('heroicon-o-chevron-right');
+            ->icon('heroicon-o-arrow-path-rounded-square');
     }
 
     /**
@@ -61,17 +62,22 @@ class SynchronizeAction extends Action
 
     /**
      * Runs the synchronization process for a page.
-     *
-     * @param  Page  $page The page to display notifications on.
      */
-    public static function run(Page $page): void
+    public static function run(): void
     {
         $result = static::synchronize();
 
-        $page->notify('success', __('translation-manager::translations.synchronization-success', ['count' => $result['total_count']]));
+        Notification::make()
+            ->title(__('translation-manager::translations.synchronization-success', ['count' => $result['total_count']]))
+            ->icon('heroicon-o-check-circle')
+            ->iconColor('success')
+            ->send();
 
         if ($result['deleted_count'] > 0) {
-            $page->notify('success', __('translation-manager::translations.synchronization-deleted', ['count' => $result['deleted_count']]));
+            Notification::make()
+                ->title(__('translation-manager::translations.synchronization-deleted', ['count' => $result['deleted_count']]))
+                ->icon('heroicon-o-trash')
+                ->send();
         }
     }
 }
