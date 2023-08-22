@@ -31,13 +31,18 @@ class TranslationScanner
             $name = Str::replace('.php', '', $file->getRelativePathname());
             $nameParts = explode(DIRECTORY_SEPARATOR, $name);
 
+            $language = $nameParts[0];
+
             // TODO: add support for vendor translations
-            if ($nameParts[0] == 'vendor') {
+            if ($language == 'vendor') {
                 continue;
             }
 
+            //if the file is in a directory, append the path to the groupname
+            $groupname = implode('/', array_slice($nameParts, 1));
+
             // Load the data from the file
-            self::parseTranslation(require $file, $nameParts[0], $file->getFilenameWithoutExtension());
+            self::parseTranslation(require $file, $language, $groupname);
         }
 
         return self::$allGroupsAndKeys;
@@ -51,7 +56,7 @@ class TranslationScanner
      * @param  string  $groupName The name of the translation group.
      * @param  string|null  $parentKey The parent key path, if applicable.
      */
-    private static function parseTranslation(array $translationArray, string $locale, string $groupName, string|null $parentKey = null): void
+    private static function parseTranslation(array $translationArray, string $locale, string $groupName, string $parentKey = null): void
     {
         foreach ($translationArray as $key => $value) {
             $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
