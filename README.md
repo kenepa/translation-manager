@@ -51,6 +51,25 @@ Schema::create('language_lines', function (Blueprint $table) {
 
 Finally, run the migration.
 
+### Custom Theme Required
+
+In order to compile the package views currectly, we need to [create a custom Filament theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) **first**, and then add the following path to its content:
+
+```js
+// Located at: /resources/css/filament/admin/tailwind.config.js
+
+import preset from '../../../../vendor/filament/filament/tailwind.config.preset';
+
+export default {
+    presets: [preset],
+    content: [
+        // other content...
+        './vendor/kenepa/translation-manager/resources/**/*.blade.php',
+    ],
+};
+```
+
+
 ## Register the plugin with a panel
 
 ```php
@@ -80,6 +99,7 @@ Gate::define('use-translation-manager', function (?User $user) {
 });
 ```
 
+
 ## Configuration
 #### `available_locales`
 Determines which locales your application supports. For example:
@@ -95,9 +115,11 @@ Determines which locales your application supports. For example:
 Enable or disable the language switcher feature. This allows users to switch their language - disable if you have your own implementation.  
 ![Language Switcher](.github/language-switcher.png)
 
+
 ## Usage
 
 Once installed, the Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.
+
 
 ## License
 

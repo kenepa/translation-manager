@@ -60,4 +60,15 @@ return [
 
     'navigation_group' => null,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Flags or Initials
+    |--------------------------------------------------------------------------
+    |
+    | Control whether to express locales using international flags, or through locale initial letters if disabled.
+    |
+    */
+
+    'show-flags' => true,
+
 ];
