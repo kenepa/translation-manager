@@ -22,10 +22,11 @@ if(!function_exists('try_svg')) {
             $refs.panel.close(event)
         },
     }">
+    @php $showFlags = config('translation-manager.show-flags'); @endphp
     <button
         @class([
-            'ml-4 block hover:opacity-75', // TODO the extra?
-            'pt-2' => config('translation-manager.show-flags'),
+            'ml-4 block hover:opacity-75',
+            'pt-2' => $showFlags,
         ])
         id="filament-language-switcher"
         x-on:click="toggle"
@@ -33,12 +34,12 @@ if(!function_exists('try_svg')) {
         <div
             @class([
                 'flex items-center justify-center rounded-full bg-cover bg-center',
-                'w-10 h-10 bg-gray-200 dark:bg-gray-900' => config('translation-manager.show-flags'),
-                'w-[2.3rem] h-[2.3rem] bg-[#030712]' => !config('translation-manager.show-flags'),
+                'w-10 h-10 bg-gray-200 dark:bg-gray-900' => $showFlags,
+                'w-[2.3rem] h-[2.3rem] bg-[#030712]' => !$showFlags,
             ])
         >
             <span class="opacity-100">
-                @if (config('translation-manager.show-flags'))
+                @if ($showFlags)
                     {{ try_svg('flag-1x1-'.$currentLanguage['flag'], 'rounded-full w-10 h-10') }}
                 @else
                     <x-icon
@@ -65,7 +66,7 @@ if(!function_exists('try_svg')) {
                     @endif
                 >
                     <span class="filament-dropdown-list-item-label truncate w-full text-start flex justify-content-start gap-3">
-                        @if (config('translation-manager.testing'))
+                        @if ($showFlags)
                             {{ try_svg('flag-4x3-'.$language['flag'], 'w-6 h-6') }}
 
                             <span class="pl">{{ $language['name'] }}</span>
