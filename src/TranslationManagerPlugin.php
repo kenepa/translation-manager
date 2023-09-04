@@ -60,7 +60,7 @@ class TranslationManagerPlugin implements Plugin
         $currentLocale = app()->getLocale();
         $currentLanguage = collect($locales)->firstWhere('code', $currentLocale);
         $otherLanguages = $locales;
-        $showFlags = config('translation-manager.show-flags');
+        $showFlags = config('translation-manager.show_flags');
 
         return view('translation-manager::language-switcher', compact(
             'otherLanguages',

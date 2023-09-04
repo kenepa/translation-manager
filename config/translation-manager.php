@@ -40,13 +40,14 @@ return [
 
     'language_switcher' => true,
 
-    /**
+    /*
     |--------------------------------------------------------------------------
-     |
-     | Determines the render hook for the language switcher.
-     | Available render hooks: https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks
-     |
-     */
+    |
+    | Determines the render hook for the language switcher.
+    | Available render hooks: https://filamentphp.com/docs/3.x/support/render-hooks#available-render-hooks
+    |
+    */
+
     'language_switcher_render_hook' => 'panels::user-menu.before',
 
     /*
@@ -62,6 +63,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Quick-Translate Navigation Registration
+    |--------------------------------------------------------------------------
+    |
+    | Whether to register the quick-translate page in navigation.
+    |
+    */
+
+    'quick_translate_navigation_registration' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Flags or Initials
     |--------------------------------------------------------------------------
     |
@@ -69,6 +81,5 @@ return [
     |
     */
 
-    'show-flags' => true,
-
+    'show_flags' => true,
 ];

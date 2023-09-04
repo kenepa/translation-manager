@@ -23,6 +23,11 @@ class QuickTranslate extends Page implements HasForms
     public $totalLanguageLines;
     public $enteredTranslation;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return config('translation-manager.quick_translate_navigation_registration');
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return config('translation-manager.navigation_group');
