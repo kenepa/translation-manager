@@ -53,7 +53,7 @@ Finally, run the migration.
 
 ### Custom Theme Required
 
-In order to compile the package views currectly, we need to [create a custom Filament theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) **first**, and then add the following path to its content:
+In order to compile the package views correctly, we need to [create a custom Filament theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) **first**, and then add the following path to its content:
 
 ```js
 // Located at: /resources/css/filament/admin/tailwind.config.js

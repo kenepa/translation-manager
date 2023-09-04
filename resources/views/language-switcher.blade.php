@@ -22,7 +22,7 @@ if(!function_exists('try_svg')) {
             $refs.panel.close(event)
         },
     }">
-    @php $showFlags = config('translation-manager.show-flags'); @endphp
+
     <button
         @class([
             'ml-4 block hover:opacity-75',

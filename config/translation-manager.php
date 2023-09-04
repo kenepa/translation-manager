@@ -65,7 +65,7 @@ return [
     | Flags or Initials
     |--------------------------------------------------------------------------
     |
-    | Control whether to express locales using international flags, or through locale initial letters if disabled.
+    | Control whether to express locales using international flags, or through locale initial letters if disabled in the language switcher.
     |
     */
 
