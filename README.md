@@ -113,7 +113,7 @@ Determines which locales your application supports. For example:
 
 #### `language_switcher`
 Enable or disable the language switcher feature. This allows users to switch their language - disable if you have your own implementation.  
-![Language Switcher](.github/language-switcher.png)
+![Language Switcher](https://raw.githubusercontent.com/kenepa/translation-manager/4.x/.github/language-switcher.png)
 
 
 ## Usage
