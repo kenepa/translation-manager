@@ -81,5 +81,5 @@ return [
     |
     */
 
-    'show-flags' => true,
+    'show_flags' => true,
 ];
