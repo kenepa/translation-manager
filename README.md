@@ -44,7 +44,7 @@ Schema::create('language_lines', function (Blueprint $table) {
     $table->bigIncrements('id');
     $table->string('group')->index();
     $table->string('key')->index();
-    $table->json('text')->default('[]');
+    $table->json('text')->default(new \Illuminate\Database\Query\Expression('(JSON_ARRAY())'));
     $table->timestamps();
 });
 ```
