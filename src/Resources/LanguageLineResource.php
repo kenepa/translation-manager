@@ -92,7 +92,9 @@ class LanguageLineResource extends Resource
             ->actions([
                 EditAction::make(),
             ])
-            ->bulkActions([]);
+            ->bulkActions([])
+			->paginated([10, 25, 50])
+            ->defaultPaginationPageOption(25);
     }
 
     public static function getColumns(): array
