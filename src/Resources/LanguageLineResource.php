@@ -160,6 +160,9 @@ class LanguageLineResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
+        if (config('translation-manager.navigation_group_translation_key')){
+            return __(config('translation-manager.navigation_group_translation_key'));
+        }
         return config('translation-manager.navigation_group');
     }
 }

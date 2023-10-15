@@ -55,11 +55,19 @@ return [
     | Navigation Group
     |--------------------------------------------------------------------------
     |
-    | The navigation group the translation manager is shown in, for example: 'Admin'.
+    | 'navigation_group' is the group in which the translation manager is displayed.
+    | For instance, it could be set to 'Admin'.
+    |
+    | 'navigation_group_translation_key' is used for a translation key.
+    | For example, it could be set to 'navigation.manageSettings'.
+    | If this key is filled, it will override navigation_group settings.
+    | Set it to null if you do not want to use it.
     |
     */
 
-    'navigation_group' => null,
+    'navigation_group_translation_key' => null,
+
+    'navigation_group' =>  null,
 
     /*
     |--------------------------------------------------------------------------
