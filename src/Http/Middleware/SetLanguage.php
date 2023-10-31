@@ -15,13 +15,13 @@ class SetLanguage
      */
     public function handle($request, Closure $next)
     {
-        $fallbackLocale = config('app.fallback_locale', 'en');
+        $locale = config('app.locale') ?? config('app.fallback_locale', 'en');
 
         if (! $request->hasSession()) {
-            $request->session()->put('language', $fallbackLocale);
+            $request->session()->put('language', $locale);
         }
 
-        App::setLocale($request->session()->get('language', $fallbackLocale));
+        App::setLocale($request->session()->get('language', $locale));
 
         return $next($request);
     }

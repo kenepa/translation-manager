@@ -92,7 +92,9 @@ class LanguageLineResource extends Resource
             ->actions([
                 EditAction::make(),
             ])
-            ->bulkActions([]);
+            ->bulkActions([])
+			->paginated([10, 25, 50])
+            ->defaultPaginationPageOption(25);
     }
 
     public static function getColumns(): array
@@ -158,6 +160,9 @@ class LanguageLineResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
+        if (config('translation-manager.navigation_group_translation_key')){
+            return __(config('translation-manager.navigation_group_translation_key'));
+        }
         return config('translation-manager.navigation_group');
     }
 }
