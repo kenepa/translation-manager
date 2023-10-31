@@ -67,7 +67,7 @@ return [
 
     'navigation_group_translation_key' => null,
 
-    'navigation_group' =>  null,
+    'navigation_group' => null,
 
     /*
     |--------------------------------------------------------------------------

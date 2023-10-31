@@ -93,7 +93,7 @@ class LanguageLineResource extends Resource
                 EditAction::make(),
             ])
             ->bulkActions([])
-			->paginated([10, 25, 50])
+            ->paginated([10, 25, 50])
             ->defaultPaginationPageOption(25);
     }
 
@@ -160,9 +160,10 @@ class LanguageLineResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        if (config('translation-manager.navigation_group_translation_key')){
+        if (config('translation-manager.navigation_group_translation_key')) {
             return __(config('translation-manager.navigation_group_translation_key'));
         }
+
         return config('translation-manager.navigation_group');
     }
 }

@@ -40,5 +40,4 @@ class ListLanguageLines extends ListRecords
                 ->action('synchronize')->tooltip('oke'),
         ];
     }
-
 }
