@@ -7,12 +7,14 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
+use Illuminate\Support\Facades\Route;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
+use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
 use Spatie\TranslationLoader\LanguageLine;
 
 class QuickTranslate extends Page implements HasForms
 {
-    use InteractsWithForms;
+    use InteractsWithForms, CanRegisterPanelNavigation;
 
     protected static string $view = 'translation-manager::quick-translate';
     protected static string $resource = LanguageLineResource::class;
@@ -27,7 +29,12 @@ class QuickTranslate extends Page implements HasForms
      */
     public static function shouldRegisterNavigation(array $parameters = []): bool
     {
-        return config('translation-manager.quick_translate_navigation_registration');
+        return static::shouldRegisterOnPanel() ? config('translation-manager.quick_translate_navigation_registration') : false;
+    }
+
+    public function mount(): void
+    {
+        abort_unless(static::shouldRegisterOnPanel(), 403);
     }
 
     public static function getNavigationGroup(): ?string

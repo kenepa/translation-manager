@@ -18,17 +18,28 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Kenepa\TranslationManager\Filters\NotTranslatedFilter;
 use Kenepa\TranslationManager\Pages\QuickTranslate;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
+use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
 use Spatie\TranslationLoader\LanguageLine;
 
 class LanguageLineResource extends Resource
 {
+    use CanRegisterPanelNavigation;
     protected static ?string $model = LanguageLine::class;
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
     protected static ?string $slug = 'translation-manager';
+
+    /**
+     * @param  array<string, mixed>  $parameters
+     */
+    public static function shouldRegisterNavigation(array $parameters = []): bool
+    {
+        return static::shouldRegisterOnPanel();
+    }
 
     public static function getLabel(): ?string
     {
@@ -145,12 +156,12 @@ class LanguageLineResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return Gate::allows('use-translation-manager');
+        return static::shouldRegisterOnPanel() ? Gate::allows('use-translation-manager') : false;
     }
 
     public static function canEdit(Model $record): bool
     {
-        return Gate::allows('use-translation-manager');
+        return static::shouldRegisterOnPanel() ? Gate::allows('use-translation-manager') : false;
     }
 
     public static function getNavigationLabel(): string

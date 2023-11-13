@@ -115,6 +115,13 @@ Determines which locales your application supports. For example:
 Enable or disable the language switcher feature. This allows users to switch their language - disable if you have your own implementation.  
 ![Language Switcher](https://raw.githubusercontent.com/kenepa/translation-manager/4.x/.github/language-switcher.png)
 
+#### `dont_register_navigation_on_panel_ids`
+Disable registering the translation manager navigation on certain panel id's. The following will disable the translation navigation for the guest panel , but still allow guest panel users to change the language:
+```php
+    'dont_register_navigation_on_panel_ids' => [
+        'guest'
+    ],
+```
 
 ## Usage
 
