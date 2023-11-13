@@ -2,22 +2,22 @@
 
 namespace Kenepa\TranslationManager\Traits;
 
-use Illuminate\Support\Facades\Route;
+use Filament\Facades\Filament;
 
 trait CanRegisterPanelNavigation
 {
-    static function shouldRegisterOnPanel() : bool
+    public static function shouldRegisterOnPanel(): bool
     {
-        if(empty(config('translation-manager.dont_register_navigation_on_panel_ids'))) {
+        if (empty(config('translation-manager.dont_register_navigation_on_panel_ids'))) {
             return true;
         }
 
-        $routeName = Route::getCurrentRoute()?->getName();
         foreach (config('translation-manager.dont_register_navigation_on_panel_ids') as $panelName) {
-            if(str_starts_with($routeName, 'filament.' . $panelName)) {
+            if (Filament::getPanel()->getId()) {
                 return false;
             }
         }
+
         return true;
     }
 }

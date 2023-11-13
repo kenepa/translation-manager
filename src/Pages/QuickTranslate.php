@@ -7,14 +7,13 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
-use Illuminate\Support\Facades\Route;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
 use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
 use Spatie\TranslationLoader\LanguageLine;
 
 class QuickTranslate extends Page implements HasForms
 {
-    use InteractsWithForms, CanRegisterPanelNavigation;
+    use CanRegisterPanelNavigation, InteractsWithForms;
 
     protected static string $view = 'translation-manager::quick-translate';
     protected static string $resource = LanguageLineResource::class;
@@ -32,11 +31,6 @@ class QuickTranslate extends Page implements HasForms
         return static::shouldRegisterOnPanel() ? config('translation-manager.quick_translate_navigation_registration') : false;
     }
 
-    public function mount(): void
-    {
-        abort_unless(static::shouldRegisterOnPanel(), 403);
-    }
-
     public static function getNavigationGroup(): ?string
     {
         return config('translation-manager.navigation_group');
@@ -45,6 +39,11 @@ class QuickTranslate extends Page implements HasForms
     public static function getNavigationIcon(): ?string
     {
         return 'heroicon-o-bolt';
+    }
+
+    public function mount(): void
+    {
+        abort_unless(static::shouldRegisterOnPanel(), 403);
     }
 
     /**
