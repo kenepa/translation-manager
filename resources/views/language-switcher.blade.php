@@ -26,7 +26,7 @@ if(!function_exists('try_svg')) {
     <button
         @class([
             'ml-4 block hover:opacity-75',
-            'pt-2' => $showFlags,
+            'pt-0' => $showFlags,
         ])
         id="filament-language-switcher"
         x-on:click="toggle"
