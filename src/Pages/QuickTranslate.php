@@ -19,6 +19,7 @@ class QuickTranslate extends Page implements HasForms
     protected static string $resource = LanguageLineResource::class;
 
     public $selectedLocale = null;
+    public $offset = 0;
     public $record;
     public $totalLanguageLines;
     public $enteredTranslation;
@@ -59,7 +60,8 @@ class QuickTranslate extends Page implements HasForms
                         ->label(__('translation-manager::translations.quick-translate-select-locale'))
                         ->reactive()
                         ->afterStateUpdated(function ($state) {
-                            $this->update();
+                            $this->offset = 0;
+                            $this->next();
                         }),
                 ]),
 
@@ -91,18 +93,26 @@ class QuickTranslate extends Page implements HasForms
         $this->enteredTranslation = '';
 
         // Go to the next item
-        $this->update();
+        $this->next();
     }
 
     /**
-     * Updates the current record and total number of language lines for the selected locale.
+     * Navigate to the next record.
      */
-    public function update(): void
+    public function next(): void
     {
         $this->record = LanguageLine::whereNull('text->' . $this->selectedLocale)
             ->first();
 
         $this->totalLanguageLines = LanguageLine::whereNull('text->' . $this->selectedLocale)->count();
+    }
+
+    public function skip(): void
+    {
+        $this->offset++;
+        $this->record = LanguageLine::whereNull('text->' . $this->selectedLocale)
+            ->offset($this->offset)
+            ->first();
     }
 
     /**

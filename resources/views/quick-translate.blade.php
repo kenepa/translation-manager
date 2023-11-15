@@ -28,7 +28,7 @@
                 <div class="mt-4 flex gap-4 items-center">
                     <x-filament::button wire:click="saveAndContinue">{{ __('translation-manager::translations.quick-translate-save-and-continue') }}</x-filament::button>
 
-                    <a class="text-gray-600 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-600 cursor-pointer inline-block" wire:click="next">
+                    <a class="text-gray-600 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-600 cursor-pointer inline-block" wire:click="skip">
                         {{ __('translation-manager::translations.quick-translate-skip') }}
                     </a>
                 </div>
