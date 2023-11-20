@@ -71,6 +71,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Navigation Icon
+    |--------------------------------------------------------------------------
+    |
+    | The navigation icon to use. Set `false` to disable the icon.
+    | Set `null` to use the default one, or specify a custom icon
+    |
+    */
+
+    'navigation_icon' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Quick-Translate Navigation Registration
     |--------------------------------------------------------------------------
     |
