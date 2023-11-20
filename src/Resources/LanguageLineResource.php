@@ -168,6 +168,15 @@ class LanguageLineResource extends Resource
         return __('translation-manager::translations.translation-navigation-label');
     }
 
+    public static function getNavigationIcon(): ?string
+    {
+       if (config('translation-manager.navigation_icon') === false) {
+           return null;
+       }
+
+       return config('translation-manager.navigation_icon', static::$navigationIcon);
+    }
+
     public static function getNavigationGroup(): ?string
     {
         if (config('translation-manager.navigation_group_translation_key')) {
