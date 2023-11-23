@@ -37,7 +37,7 @@ class ListLanguageLines extends ListRecords
                 ->url(LanguageLineResource::getUrl('quick-translate')),
 
             SynchronizeAction::make('synchronize')
-                ->action('synchronize')->tooltip('oke'),
+                ->action('synchronize'),
         ];
     }
 }

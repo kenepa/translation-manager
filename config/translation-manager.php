@@ -102,4 +102,17 @@ return [
     */
 
     'show_flags' => true,
+
+    /*
+   |--------------------------------------------------------------------------
+   | Prepend directory path to group name
+   |--------------------------------------------------------------------------
+   |
+   | Control whether to append the directory path to the group name.
+   | ex. If the translation file for settings is in directory lang/en/settings/user.php
+   | The group name will be settings/user
+   |
+   */
+
+    'prepend_directory_path_to_group_name' => false,
 ];

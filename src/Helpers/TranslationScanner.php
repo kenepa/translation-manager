@@ -36,8 +36,15 @@ class TranslationScanner
                 continue;
             }
 
+            $groupName = $file->getFilenameWithoutExtension();
+
+            if (config('translation-manager.prepend_directory_path_to_group_name')) {
+                //if the file is in a directory, append the path to the groupname
+                $groupName = implode('/', array_slice($nameParts, 1));
+            }
+
             // Load the data from the file
-            self::parseTranslation(require $file, $nameParts[0], $file->getFilenameWithoutExtension());
+            self::parseTranslation(require $file, $nameParts[0], $groupName);
         }
 
         return self::$allGroupsAndKeys;
