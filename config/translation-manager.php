@@ -103,7 +103,6 @@ return [
 
     'show_flags' => true,
 
-
     /*
    |--------------------------------------------------------------------------
    | Prepend directory path to group name
