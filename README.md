@@ -73,7 +73,7 @@ export default {
 ## Register the plugin with a panel
 
 ```php
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Filament\Panel;
  
 class AdminPanelProvider extends PanelProvider
