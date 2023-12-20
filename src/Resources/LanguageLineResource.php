@@ -170,11 +170,11 @@ class LanguageLineResource extends Resource
 
     public static function getNavigationIcon(): ?string
     {
-       if (config('translation-manager.navigation_icon') === false) {
-           return null;
-       }
+        if (config('translation-manager.navigation_icon') === false) {
+            return null;
+        }
 
-       return config('translation-manager.navigation_icon', static::$navigationIcon);
+        return config('translation-manager.navigation_icon', static::$navigationIcon);
     }
 
     public static function getNavigationGroup(): ?string
