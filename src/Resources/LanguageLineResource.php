@@ -28,9 +28,13 @@ use Spatie\TranslationLoader\LanguageLine;
 class LanguageLineResource extends Resource
 {
     use CanRegisterPanelNavigation;
-    protected static ?string $model = LanguageLine::class;
     protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
     protected static ?string $slug = 'translation-manager';
+
+    public static function getModel(): string
+    {
+        return config('translation-loader.model', LanguageLine::class);
+    }
 
     /**
      * @param  array<string, mixed>  $parameters
