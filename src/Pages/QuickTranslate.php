@@ -101,16 +101,16 @@ class QuickTranslate extends Page implements HasForms
      */
     public function next(): void
     {
-        $this->record = LanguageLine::whereNull('text->' . $this->selectedLocale)
+        $this->record = static::getModel()::whereNull('text->' . $this->selectedLocale)
             ->first();
 
-        $this->totalLanguageLines = LanguageLine::whereNull('text->' . $this->selectedLocale)->count();
+        $this->totalLanguageLines = static::getModel()::whereNull('text->' . $this->selectedLocale)->count();
     }
 
     public function skip(): void
     {
         $this->offset++;
-        $this->record = LanguageLine::whereNull('text->' . $this->selectedLocale)
+        $this->record = static::getModel()::whereNull('text->' . $this->selectedLocale)
             ->offset($this->offset)
             ->first();
     }
