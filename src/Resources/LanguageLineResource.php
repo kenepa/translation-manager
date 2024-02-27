@@ -71,7 +71,7 @@ class LanguageLineResource extends Resource
                     ->disabled()
                     ->columnSpan(2),
 
-                Section::make('Translations')->schema([
+                Section::make(__('translation-manager::translations.translation-section'))->schema([
                     Repeater::make('translations')->schema([
                         Select::make('language')
                             ->prefixIcon('heroicon-o-language')

@@ -14,6 +14,7 @@ return [
     'add-translation-button' => 'Voeg nieuwe vertaling toe',
     'translation-language' => 'Taal',
     'translation-text' => 'Vertaalde tekst',
+    'translation-section' => 'Vertalingen',
     'filter-not-translated' => 'Niet vertaald naar',
     'quick-translate' => 'Snelle vertaling',
     'quick-translate-select-locale' => 'Selecteer de taal',

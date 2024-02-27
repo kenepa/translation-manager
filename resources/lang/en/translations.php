@@ -14,6 +14,7 @@ return [
     'add-translation-button' => 'Add new translation',
     'translation-language' => 'Language',
     'translation-text' => 'Translated text',
+    'translation-section' => 'Translations',
     'filter-not-translated' => 'Not translated into',
     'quick-translate' => 'Quick Translate',
     'quick-translate-select-locale' => 'Select the language',
