@@ -61,6 +61,7 @@ class TranslationScanner
     private static function parseTranslation(array $translationArray, string $locale, string $groupName, string $parentKey = null): void
     {
         foreach ($translationArray as $key => $value) {
+            $key = (string) $key;
             $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
 
             if (is_array($value)) {
