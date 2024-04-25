@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'translation-navigation-label' => 'Çeviri Yöneticisi',
+    'translation-label' => 'Çeviri|Çeviriler',
+    'group' => 'Çeviri grubu',
+    'key' => 'Çeviri anahtarı',
+    'preview-in-your-lang' => 'Aktif dil üzerinden ön izlemesini gör (:lang)',
+    'synchronize' => 'Senkronize et',
+    'synchronization-success' => ':count adet çeviri senkronize edildi!',
+    'synchronization-deleted' => ':count adet kullanılmayan çeviri silindi',
+    'preview' => 'Ön İzleme',
+    'preview-description' => 'Aktif olan dil üzerinde nasıl görünecek (:lang)',
+    'add-translation-button' => 'Yeni çeviri ekle',
+    'translation-language' => 'Dil',
+    'translation-text' => 'Çevirilen terim',
+    'filter-not-translated' => 'Çevirisi eksik olan',
+    'quick-translate' => 'Hızlı Çeviri',
+    'quick-translate-select-locale' => 'Dil seçiniz',
+    'quick-translate-translation-number' => ':total adet çevirilmeyi bekleyen terim kaldı',
+    'quick-translate-skip' => 'Bu terimi atla',
+    'quick-translate-enter' => '":lang" dilindeki tercümesini girin:',
+    'quick-translate-save-and-continue' => 'Kaydet ve devam et',
+    'quick-translate-nothing' => 'Çevirilecek terim yok!',
+];
