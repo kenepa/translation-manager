@@ -34,13 +34,13 @@ if(!function_exists('try_svg')) {
         <div
             @class([
                 'flex items-center justify-center rounded-full bg-cover bg-center',
-                'w-10 h-10 bg-gray-200 dark:bg-gray-900' => $showFlags,
+                'w-8 h-8 bg-gray-200 dark:bg-gray-900' => $showFlags,
                 'w-[2.3rem] h-[2.3rem] bg-[#030712]' => !$showFlags,
             ])
         >
             <span class="opacity-100">
                 @if ($showFlags)
-                    {{ try_svg('flag-1x1-'.$currentLanguage['flag'], 'rounded-full w-10 h-10') }}
+                    {{ try_svg('flag-1x1-'.$currentLanguage['flag'], 'rounded-full w-8 h-8') }}
                 @else
                     <x-icon
                         name="heroicon-o-language"
