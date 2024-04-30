@@ -13,7 +13,7 @@ trait CanRegisterPanelNavigation
         }
 
         foreach (config('translation-manager.dont_register_navigation_on_panel_ids') as $panelName) {
-            if (Filament::getPanel()->getId() === $panelName) {
+            if (Filament::getCurrentPanel()->getId() === $panelName) {
                 return false;
             }
         }
