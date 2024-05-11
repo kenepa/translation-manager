@@ -39,7 +39,7 @@ class QuickTranslate extends Page implements HasForms
 
     public static function getNavigationLabel(): string
     {
-        return trans_choice('translation-manager::translations.quick-translate',1);
+        return trans_choice('translation-manager::translations.quick-translate', 1);
     }
 
     public static function getNavigationIcon(): ?string
