@@ -37,6 +37,11 @@ class QuickTranslate extends Page implements HasForms
         return config('translation-manager.navigation_group');
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return trans_choice('translation-manager::translations.quick-translate', 1);
+    }
+
     public static function getNavigationIcon(): ?string
     {
         return 'heroicon-o-bolt';
