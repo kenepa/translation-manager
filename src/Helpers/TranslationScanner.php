@@ -53,12 +53,12 @@ class TranslationScanner
     /**
      * Recursively parses a translation and adds all keys to the `$allGroupsAndKeys` array.
      *
-     * @param  array  $translationArray The translation array to parse.
-     * @param  string  $locale The locale of the translation.
-     * @param  string  $groupName The name of the translation group.
-     * @param  string|null  $parentKey The parent key path, if applicable.
+     * @param  array  $translationArray  The translation array to parse.
+     * @param  string  $locale  The locale of the translation.
+     * @param  string  $groupName  The name of the translation group.
+     * @param  string|null  $parentKey  The parent key path, if applicable.
      */
-    private static function parseTranslation(array $translationArray, string $locale, string $groupName, string $parentKey = null): void
+    private static function parseTranslation(array $translationArray, string $locale, string $groupName, ?string $parentKey = null): void
     {
         foreach ($translationArray as $key => $value) {
             $currentKey = $parentKey ? $parentKey . '.' . $key : $key;

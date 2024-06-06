@@ -11,7 +11,7 @@ use Spatie\TranslationLoader\LanguageLine;
 
 class SynchronizeAction extends Action
 {
-    public static function make(string $name = null): static
+    public static function make(?string $name = null): static
     {
         return parent::make($name)
             ->label(__('translation-manager::translations.synchronize'))
@@ -21,7 +21,7 @@ class SynchronizeAction extends Action
     /**
      * Runs the synchronization process for the translations.
      */
-    public static function synchronize(SynchronizeTranslationsCommand $command = null): array
+    public static function synchronize(?SynchronizeTranslationsCommand $command = null): array
     {
         // Extract all translation groups, keys and text
         $groupsAndKeys = TranslationScanner::scan();
