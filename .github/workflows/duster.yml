@@ -1,0 +1,18 @@
+# .github/workflows/duster.yml
+name: Duster
+
+on:
+  push:
+    branches: main
+  pull_request:
+
+jobs:
+  duster:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: "duster"
+        uses: tighten/duster-action@v3
+        with:
+          args: lint
