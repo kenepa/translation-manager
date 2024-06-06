@@ -11,59 +11,50 @@ if(!function_exists('try_svg')) {
 }
 @endphp
 
-<div x-data="{
-        toggle: function (event) {
-            $refs.panel.toggle(event)
-        },
-        open: function (event) {
-            $refs.panel.open(event)
-        },
-        close: function (event) {
-            $refs.panel.close(event)
-        },
-    }">
-
-    <button
-        @class([
-            'block hover:opacity-75',
-            'pt-0' => $showFlags,
-        ])
-        id="filament-language-switcher"
-        x-on:click="toggle"
-    >
-        <div
-            @class([
-                'flex items-center justify-center rounded-full bg-cover bg-center',
-                'w-8 h-8 bg-gray-200 dark:bg-gray-900' => $showFlags,
-                'w-[2.3rem] h-[2.3rem] bg-[#030712]' => !$showFlags,
-            ])
+<x-filament::dropdown placement="bottom-start">
+    <x-slot name="trigger">
+        <button
+                @class([
+                    'block hover:opacity-75',
+                    'pt-0' => $showFlags,
+                ])
+                id="filament-language-switcher"
+                x-on:click="toggle"
         >
+            <div
+                    @class([
+                        'flex items-center justify-center rounded-full bg-cover bg-center',
+                        'w-8 h-8 bg-gray-200 dark:bg-gray-900' => $showFlags,
+                        'w-[2.3rem] h-[2.3rem] bg-[#030712]' => !$showFlags,
+                    ])
+            >
             <span class="opacity-100">
                 @if ($showFlags)
                     {{ try_svg('flag-1x1-'.$currentLanguage['flag'], 'rounded-full w-8 h-8') }}
                 @else
                     <x-icon
-                        name="heroicon-o-language"
-                        class="w-5 h-5"
+                            name="heroicon-o-language"
+                            class="w-5 h-5"
                     />
                 @endif
             </span>
-        </div>
-    </button>
+            </div>
+        </button>
+    </x-slot>
 
-    <div x-ref="panel" x-float.placement.bottom-end.flip.offset="{ offset: 8 }" x-transition:enter-start="opacity-0 scale-95" x-transition:leave-end="opacity-0 scale-95" class="ffi-dropdown-panel absolute z-10 w-screen divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-gray-950/5 transition dark:divide-white/5 dark:bg-gray-900 dark:ring-white/10 max-w-[14rem]" style="display: none; left: 1152px; top: 59.5px;">
-        <div class="filament-dropdown-list p-1">
-            @foreach ($otherLanguages as $language)
-                @php $isCurrent = $currentLanguage['code'] === $language['code']; @endphp
+    <x-filament::dropdown.list>
+        @foreach ($otherLanguages as $language)
+            @php $isCurrent = $currentLanguage['code'] === $language['code']; @endphp
+            <x-filament::dropdown.list.item>
                 <a
-                    @class([
-                        'filament-dropdown-list-item filament-dropdown-item group flex w-full items-center whitespace-nowrap rounded-md p-2 text-sm outline-none text-gray-500 dark:text-gray-200',
-                        'hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5 hover:text-gray-700 focus:text-gray-500 dark:hover:text-gray-200 dark:focus:text-gray-400' => !$isCurrent,
-                        'cursor-default' => $isCurrent,
-                    ])
-                    @if (!$isCurrent)
-                        href="{{ route('translation-manager.switch', ['code' => $language['code']]) }}"
-                    @endif
+                        @class([
+                            'filament-dropdown-list-item filament-dropdown-item group flex w-full items-center whitespace-nowrap rounded-md p-2 text-sm outline-none text-gray-500 dark:text-gray-200',
+                            'hover:bg-gray-50 focus:bg-gray-50 dark:hover:bg-white/5 dark:focus:bg-white/5 hover:text-gray-700 focus:text-gray-500 dark:hover:text-gray-200 dark:focus:text-gray-400' => !$isCurrent,
+                            'cursor-default' => $isCurrent,
+                        ])
+                        @if (!$isCurrent)
+                            href="{{ route('translation-manager.switch', ['code' => $language['code']]) }}"
+                        @endif
                 >
                     <span class="filament-dropdown-list-item-label truncate w-full text-start flex justify-content-start gap-3">
                         @if ($showFlags)
@@ -75,7 +66,8 @@ if(!function_exists('try_svg')) {
                         @endif
                     </span>
                 </a>
-            @endforeach
-        </div>
-    </div>
-</div>
+            </x-filament::dropdown.list.item>
+        @endforeach
+    </x-filament::dropdown.list>
+</x-filament::dropdown>
+
