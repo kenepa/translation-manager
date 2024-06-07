@@ -1,6 +1,6 @@
 <div x-data>
     <template x-ref="template">
-        @foreach($getRecord()->text as $key => $translation)
+        @foreach ($getRecord()->text as $key => $translation)
             <div class="block"><span class="font-bold">{{ $key }}</span> - {{ $translation }} </div>
         @endforeach
 
