@@ -29,7 +29,7 @@ if(!function_exists('try_svg')) {
                     ])
             >
             <span class="opacity-100">
-                @if ($showFlags)
+                @if (isset($currentLanguage) && $showFlags)
                     {{ try_svg('flag-1x1-'.$currentLanguage['flag'], 'rounded-full w-8 h-8') }}
                 @else
                     <x-icon
@@ -44,7 +44,12 @@ if(!function_exists('try_svg')) {
 
     <x-filament::dropdown.list>
         @foreach ($otherLanguages as $language)
-            @php $isCurrent = $currentLanguage['code'] === $language['code']; @endphp
+            @php
+                $isCurrent = false;
+                if (isset($currentLanguage)) {
+                    $isCurrent = $currentLanguage['code'] === $language['code'];
+                }
+            @endphp
             <x-filament::dropdown.list.item>
                 <a
                         @class([
