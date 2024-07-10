@@ -76,7 +76,7 @@ class LanguageLineResource extends Resource
                         Select::make('language')
                             ->prefixIcon('heroicon-o-language')
                             ->label(__('translation-manager::translations.translation-language'))
-                            ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
+                            ->options(collect(config('translation-manager.available_locales'))->pluck('name', 'code'))
                             ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                             ->columnSpanFull()
                             ->required(),
