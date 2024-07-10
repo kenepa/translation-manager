@@ -77,6 +77,7 @@ class LanguageLineResource extends Resource
                             ->prefixIcon('heroicon-o-language')
                             ->label(__('translation-manager::translations.translation-language'))
                             ->options(collect(config('translation-manager.available_locales'))->pluck('code', 'code'))
+                            ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                             ->required(),
 
                         Textarea::make('text')
