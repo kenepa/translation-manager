@@ -12,6 +12,7 @@ return [
     'preview' => 'Aperçu',
     'preview-description' => 'Ceci est un aperçu dans la langue actuellement sélectionnée (:lang)',
     'add-translation-button' => 'Ajouter une nouvelle traduction',
+    'translations-header' => 'Traductions',
     'translation-language' => 'Langue',
     'translation-text' => 'Texte traduit',
     'filter-not-translated' => 'Non traduit en',

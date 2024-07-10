@@ -12,6 +12,7 @@ return [
     'preview' => 'Ön İzleme',
     'preview-description' => 'Aktif olan dil üzerinde nasıl görünecek (:lang)',
     'add-translation-button' => 'Yeni çeviri ekle',
+    'translations-header' => 'Çeviriler',
     'translation-language' => 'Dil',
     'translation-text' => 'Çevirilen terim',
     'filter-not-translated' => 'Çevirisi eksik olan',

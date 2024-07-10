@@ -12,6 +12,7 @@ return [
     'preview' => 'Voorbeeld',
     'preview-description' => 'Dit is een voorbeeld in de huidige geselecteerde taal (:lang)',
     'add-translation-button' => 'Voeg nieuwe vertaling toe',
+    'translations-header' => 'Vertalingen',
     'translation-language' => 'Taal',
     'translation-text' => 'Vertaalde tekst',
     'filter-not-translated' => 'Niet vertaald naar',

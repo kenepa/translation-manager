@@ -12,6 +12,7 @@ return [
     'preview' => 'Previsualitzar',
     'preview-description' => 'Es un exemple en la teva llegua (:lang)',
     'add-translation-button' => 'Afegir traducció',
+    'translations-header' => 'Traduccions',
     'translation-language' => 'Llengua',
     'translation-text' => 'Text traduït',
     'filter-not-translated' => 'No traduït al ',
