@@ -93,12 +93,22 @@ class AdminPanelProvider extends PanelProvider
 By default, the translation manager cannot be used by anyone. You need to define the following gate in your `AppServiceProvider` boot method:
 
 ```php
-Gate::define('use-translation-manager', function (?User $user) {
-    // Your authorization logic
-    return $user !== null && $user->hasRole('admin');
-});
-```
+// app/Providers/AppServiceProvider.php
 
+use Illuminate\Support\Facades\Gate;
+
+/**
+ * Bootstrap any application services.
+ */
+public function boot(): void
+{   
+    Gate::define('use-translation-manager', function (?User $user) {
+        // Your authorization logic
+        return $user !== null && $user->hasRole('admin');
+    });
+}
+```
+If you want to learn more about gates, [check out the official documentation](https://laravel.com/docs/master/authorization#gates).
 
 ## Configuration
 #### `available_locales`
