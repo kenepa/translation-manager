@@ -185,4 +185,9 @@ class LanguageLineResource extends Resource
 
         return config('translation-manager.navigation_group');
     }
+
+    public static function getCluster(): ?string
+    {
+        return config('translation-manager.cluster');
+    }
 }

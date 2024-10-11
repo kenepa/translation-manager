@@ -133,6 +133,16 @@ Disable registering the translation manager navigation on certain panel IDs. The
     ],
 ```
 
+### Adding to cluster
+Example of adding the translation manager to a cluster:
+```php
+// config/translation-manager.php
+[
+  // ...Other config   
+ 'cluster' => \App\Filament\Clusters\Products::class,
+]
+```
+
 ## Usage
 
 Once installed, the Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.
