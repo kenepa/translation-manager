@@ -12,6 +12,7 @@ return [
     'preview' => 'Previsualizar',
     'preview-description' => 'Es es un ejemplo en tu idioma (:lang)',
     'add-translation-button' => 'Añadir traducción',
+    'translations-header' => 'Traducciones',
     'translation-language' => 'Idioma',
     'translation-text' => 'Texto traducido',
     'filter-not-translated' => 'No traducido al ',
