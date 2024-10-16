@@ -122,7 +122,11 @@ class LanguageLineResource extends Resource
         $columns = [
             TextColumn::make('group_and_key')
                 ->label(__('translation-manager::translations.group') . ' & ' . __('translation-manager::translations.key'))
-                ->searchable(['group', 'key'])
+                ->searchable(query: function (Builder $query, string $search): Builder {
+                    return $query
+                        ->where('group', 'like', "%{$search}%")
+                        ->orWhere('key', 'like', "%{$search}%");
+                })
                 ->getStateUsing(function (Model $record) {
                     return $record->group . '.' . $record->key;
                 }),
