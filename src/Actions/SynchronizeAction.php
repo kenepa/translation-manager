@@ -23,6 +23,9 @@ class SynchronizeAction extends Action
      */
     public static function synchronize(?SynchronizeTranslationsCommand $command = null): array
     {
+        // Get the LanguageLine model defined in config/translation-loader.php
+        $model = config('translation-loader.model', LanguageLine::class);
+
         // Extract all translation groups, keys and text
         $groupsAndKeys = TranslationScanner::scan();
 
@@ -30,7 +33,7 @@ class SynchronizeAction extends Action
         $result['total_count'] = 0;
 
         // Find and delete old LanguageLines that no longer exist in the translation files
-        $result['deleted_count'] = LanguageLine::query()
+        $result['deleted_count'] = $model::query()
             ->whereNotIn('group', array_column($groupsAndKeys, 'group'))
             ->orWhereNotIn('key', array_column($groupsAndKeys, 'key'))
             ->delete();
@@ -39,12 +42,12 @@ class SynchronizeAction extends Action
         foreach ($groupsAndKeys as $groupAndKey) {
             $startTime = microtime(true);
 
-            $existingItem = LanguageLine::where('group', $groupAndKey['group'])
+            $existingItem = $model::where('group', $groupAndKey['group'])
                 ->where('key', $groupAndKey['key'])
                 ->first();
 
-            if (! $existingItem) {
-                LanguageLine::create([
+            if (!$existingItem) {
+                $model::create([
                     'group' => $groupAndKey['group'],
                     'key' => $groupAndKey['key'],
                     'text' => $groupAndKey['text'],
