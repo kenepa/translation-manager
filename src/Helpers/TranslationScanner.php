@@ -18,7 +18,13 @@ class TranslationScanner
      */
     public static function scan(): array
     {
+        $directories = File::glob(base_path('Modules/*/lang/'));
+
         $files = File::allFiles(lang_path());
+
+        if (!empty($directories)) {
+            $files = array_merge($files, File::allFiles($directories));
+        }
 
         // Loop through all groups
         foreach ($files as $file) {
