@@ -98,6 +98,7 @@ class LanguageLineResource extends Resource
                             '2xl' => 4,
                         ])
                         ->columnSpan(2)
+                        ->deletable(Gate::allows('admin-translation-manager'))
                         ->maxItems(count(config('translation-manager.available_locales'))),
                 ]),
             ]);

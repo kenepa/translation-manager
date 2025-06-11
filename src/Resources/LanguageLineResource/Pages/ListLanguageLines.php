@@ -37,7 +37,8 @@ class ListLanguageLines extends ListRecords
                 ->url(LanguageLineResource::getUrl('quick-translate')),
 
             SynchronizeAction::make('synchronize')
-                ->action('synchronize'),
+                ->action('synchronize')
+                ->visible(app('Illuminate\Contracts\Auth\Access\Gate')->allows('admin-translation-manager')),
         ];
     }
 }
