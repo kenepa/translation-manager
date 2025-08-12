@@ -61,7 +61,8 @@ class TranslationScanner
     private static function parseTranslation(array $translationArray, string $locale, string $groupName, ?string $parentKey = null): void
     {
         foreach ($translationArray as $key => $value) {
-            $currentKey = $parentKey ? $parentKey . '.' . $key : $key;
+            // Ensure that $currentKey is a string as it will otherwise create errors with Eloquent
+            $currentKey = (string) ($parentKey ? $parentKey . '.' . $key : $key);
 
             if (is_array($value)) {
                 self::parseTranslation($value, $locale, $groupName, $currentKey);
