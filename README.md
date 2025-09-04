@@ -23,6 +23,7 @@ Install via Composer.
 |----------------|-----------------|-------------|
 | <= 3.x         | 2.x   | \> 8.0      |
 | 4.x            | 3.x             | \> 8.1      |
+| 5.x            | 4.x             | \> 8.2      |
 
 ```bash
 composer require kenepa/translation-manager
