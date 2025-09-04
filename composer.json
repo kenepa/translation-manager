@@ -8,7 +8,7 @@
         "localization",
         "translation"
     ],
-    "homepage": "https://github.com/kenape/translation-manager",
+    "homepage": "https://github.com/kenepa/translation-manager",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "filament/filament": "^4.0",
         "filament/notifications": "^4.0",
         "spatie/laravel-package-tools": "^1.92",
