@@ -188,6 +188,66 @@ Example of adding the translation manager to a cluster:
 Once installed, the Translation Manager can be accessed via the Filament sidebar menu. Simply click on the "Translation Manager" link to access the translation management screen.
 
 
+## Upgrade Guide
+
+### Upgrading from 4.x to 5.x
+
+Version 5.x introduces **Filament v4 support** and a **new plugin-based configuration system**. Follow these steps to upgrade:
+
+#### Prerequisites
+- **PHP**: Upgrade to PHP 8.2+
+- **Filament**: Upgrade to Filament 4.x
+
+#### Step 1: Theme Configuration (Required)
+
+**Breaking Change**: Filament v4 requires a different approach for including package assets.
+
+**Remove from `tailwind.config.js` (if present):**
+```js
+// Remove this from your tailwind.config.js content array:
+'./vendor/kenepa/translation-manager/resources/**/*.blade.php'
+```
+
+**Add to your custom theme CSS file:**
+
+1. Create a custom theme if you don't have one ([Filament v4 theme docs](https://filamentphp.com/docs/4.x/panels/themes#creating-a-custom-theme))
+2. Add this line to your theme's CSS file:
+
+```css
+@source '../../../../vendor/kenepa/translation-manager/resources/**/*.blade.php';
+```
+
+#### Step 2: Migrate Configuration (Recommended)
+
+Migrate your config file settings to the plugin configuration:
+
+```php
+// In your AdminPanelProvider.php
+use Kenepa\TranslationManager\TranslationManagerPlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugin(
+            TranslationManagerPlugin::make()
+                ->availableLocales([
+                    ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
+                    ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'],
+                    ['code' => 'fr', 'name' => 'Français', 'flag' => 'fr'],
+                ])
+                ->languageSwitcher(true)
+                ->languageSwitcherRenderHook('panels::user-menu.before')
+                ->navigationGroup('Settings')
+                ->navigationIcon('heroicon-o-globe-alt')
+                ->showFlags(true)
+                ->disableKeyAndGroupEditing(false)
+                ->quickTranslateNavigationRegistration(true)
+                ->dontRegisterNavigationOnPanelIds(['guest'])
+        );
+}
+```
+
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
