@@ -11,9 +11,9 @@
         @if ($this->record)
             <div class="bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10 rounded-lg mt-6">
                 <div class="mb-4">
-                    <h1 class="font-bold text-lg text-gray-600 dark:text-gray-200">
+                    <x-filament::badge>
                         {{ $this->record->group }}.{{ $this->record->key }}
-                    </h1>
+                    </x-filament::badge>
                     <p class="text-sm text-gray-400  dark:text-gray-300">
                         {{ __('translation-manager::translations.quick-translate-translation-number', ['total' => $this->totalLanguageLines]) }}
                     </p>

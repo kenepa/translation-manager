@@ -4,6 +4,7 @@ namespace Kenepa\TranslationManager\Helpers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 
 class TranslationScanner
 {
@@ -38,7 +39,7 @@ class TranslationScanner
 
             $groupName = $file->getFilenameWithoutExtension();
 
-            if (config('translation-manager.prepend_directory_path_to_group_name')) {
+            if (TranslationManagerPlugin::get()->shouldPrependDirectoryPathToGroupName()) {
                 //if the file is in a directory, append the path to the groupname
                 $groupName = implode('/', array_slice($nameParts, 1));
             }

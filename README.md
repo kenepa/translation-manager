@@ -35,7 +35,8 @@ php artisan vendor:publish --tag=translation-manager-config
 
 This package uses `spatie/laravel-translation-loader`, publish their migration file using:
 ```bash
-php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="translation-loader-migrations"
+php artisan migrate
 ```
 
 You have to update the migration file to the following:
@@ -53,20 +54,10 @@ Finally, run the migration.
 
 ### Custom Theme Required
 
-In order to compile the package views correctly, we need to [create a custom Filament theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) **first**, and then add the following path to its content:
+In order to compile the package views correctly, we need to [create a custom Filament theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) **first**, and then add the following path to its content. In the `theme.css` file of the theme, add the following line:
 
-```js
-// Located at: /resources/css/filament/admin/tailwind.config.js
-
-import preset from '../../../../vendor/filament/filament/tailwind.config.preset';
-
-export default {
-    presets: [preset],
-    content: [
-        // other content...
-        './vendor/kenepa/translation-manager/resources/**/*.blade.php',
-    ],
-};
+```css
+@source '../../../../vendor/kenepa/translation-manager/resources/**/*.blade.php';
 ```
 
 
@@ -87,6 +78,53 @@ class AdminPanelProvider extends PanelProvider
 }
 ```
 
+## Configuration
+
+**From version 5.x onwards, the main configuration is done through the plugin class.** The traditional config file is still supported for backwards compatibility, but all new configurations should be done through the plugin.
+
+### Plugin Configuration (Recommended)
+
+Configure the plugin using fluent method chaining:
+
+```php
+use Kenepa\TranslationManager\TranslationManagerPlugin;
+
+TranslationManagerPlugin::make()
+    ->availableLocales([
+        ['code' => 'en', 'name' => 'English', 'flag' => 'gb'],
+        ['code' => 'nl', 'name' => 'Nederlands', 'flag' => 'nl'],
+        ['code' => 'fr', 'name' => 'Français', 'flag' => 'fr'],
+        ['code' => 'de', 'name' => 'Deutsch', 'flag' => 'de'],
+    ])
+    ->languageSwitcher(true)
+    ->languageSwitcherRenderHook('panels::user-menu.before')
+    ->navigationGroup('Settings')
+    ->navigationIcon('heroicon-o-globe-alt')
+    ->showFlags(true)
+    ->disableKeyAndGroupEditing(false)
+    ->quickTranslateNavigationRegistration(true)
+    ->dontRegisterNavigationOnPanelIds(['guest'])
+    ->prependDirectoryPathToGroupName(false)
+```
+
+#### Available Configuration Methods
+
+- `availableLocales(array $locales)` - Set available application locales
+- `disableKeyAndGroupEditing(bool $disable = true)` - Control key/group editing
+- `languageSwitcher(bool $enable = true)` - Enable/disable language switcher
+- `languageSwitcherRenderHook(string $hook)` - Set render hook for language switcher
+- `navigationGroupTranslationKey(?string $key)` - Set navigation group translation key
+- `navigationGroup(?string $group)` - Set navigation group
+- `cluster(?string $cluster)` - Set cluster
+- `navigationIcon(mixed $icon)` - Set navigation icon (supports `false` to disable)
+- `quickTranslateNavigationRegistration(bool $register = true)` - Control quick translate navigation
+- `dontRegisterNavigationOnPanelIds(array $panelIds)` - Exclude panels from navigation
+- `showFlags(bool $show = true)` - Show flags in language switcher
+- `prependDirectoryPathToGroupName(bool $prepend = true)` - Control group naming
+
+### Config File (Legacy Support)
+
+For backwards compatibility, you can still use the traditional config file approach. All existing config values will continue to work as fallbacks.
 
 ## Authorization
 
@@ -110,7 +148,8 @@ public function boot(): void
 ```
 If you want to learn more about gates, [check out the official documentation](https://laravel.com/docs/master/authorization#gates).
 
-## Configuration
+### Legacy Configuration Examples
+
 #### `available_locales`
 Determines which locales your application supports. For example:
 ```php
@@ -133,7 +172,7 @@ Disable registering the translation manager navigation on certain panel IDs. The
     ],
 ```
 
-### Adding to cluster
+#### Adding to cluster
 Example of adding the translation manager to a cluster:
 ```php
 // config/translation-manager.php

@@ -2,15 +2,17 @@
 
 namespace Kenepa\TranslationManager\Resources;
 
+use BackedEnum;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
-use Filament\Forms\Form;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\EditAction;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -22,6 +24,7 @@ use Kenepa\TranslationManager\Filters\NotTranslatedFilter;
 use Kenepa\TranslationManager\Pages\QuickTranslate;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
 use Spatie\TranslationLoader\LanguageLine;
 
@@ -29,7 +32,7 @@ class LanguageLineResource extends Resource
 {
     use CanRegisterPanelNavigation;
     protected static ?string $model = LanguageLine::class;
-    protected static ?string $navigationIcon = 'heroicon-o-globe-alt';
+    protected static string|null|BackedEnum $navigationIcon = 'heroicon-o-globe-alt';
     protected static ?string $slug = 'translation-manager';
 
     /**
@@ -50,19 +53,19 @@ class LanguageLineResource extends Resource
         return trans_choice('translation-manager::translations.translation-label', 2);
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 TextInput::make('group')
                     ->prefixIcon('heroicon-o-tag')
-                    ->disabled(config('translation-manager.disable_key_and_group_editing'))
+                    ->disabled(TranslationManagerPlugin::get()->shouldDisableKeyAndGroupEditing())
                     ->label(__('translation-manager::translations.group'))
                     ->required(),
 
                 TextInput::make('key')
                     ->prefixIcon('heroicon-o-key')
-                    ->disabled(config('translation-manager.disable_key_and_group_editing'))
+                    ->disabled(TranslationManagerPlugin::get()->shouldDisableKeyAndGroupEditing())
                     ->label(__('translation-manager::translations.key'))
                     ->required(),
 
@@ -71,35 +74,38 @@ class LanguageLineResource extends Resource
                     ->disabled()
                     ->columnSpan(2),
 
-                Section::make(__('translation-manager::translations.translations-header'))->schema([
-                    Repeater::make('translations')->schema([
-                        Select::make('language')
-                            ->prefixIcon('heroicon-o-language')
-                            ->label(__('translation-manager::translations.translation-language'))
-                            ->options(collect(config('translation-manager.available_locales'))->pluck('name', 'code'))
-                            ->disableOptionsWhenSelectedInSiblingRepeaterItems()
-                            ->columnSpanFull()
-                            ->required(),
+                Section::make(__('translation-manager::translations.translations-header'))
+                    ->columnSpanFull()
+                    ->schema([
+                        Repeater::make('translations')->schema([
+                            Select::make('language')
+                                ->prefixIcon('heroicon-o-language')
+                                ->label(__('translation-manager::translations.translation-language'))
+                                ->options(collect(TranslationManagerPlugin::get()->getAvailableLocales())->pluck('name', 'code'))
+                                ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                ->columnSpanFull()
+                                ->required(),
 
-                        Textarea::make('text')
-                            ->label(__('translation-manager::translations.translation-text'))
-                            ->columnSpanFull()
-                            ->required(),
-                    ])->columns(2)
-                        ->addActionLabel(__('translation-manager::translations.add-translation-button'))
-                        ->hiddenLabel()
-                        ->defaultItems(0)
-                        ->reorderable(false)
-                        ->grid([
-                            'default' => 1,
-                            'sm' => 1,
-                            'md' => 2,
-                            'xl' => 3,
-                            '2xl' => 4,
+                            Textarea::make('text')
+                                ->label(__('translation-manager::translations.translation-text'))
+                                ->columnSpanFull()
+                                ->required(),
                         ])
-                        ->columnSpan(2)
-                        ->maxItems(count(config('translation-manager.available_locales'))),
-                ]),
+                            ->columns(2)
+                            ->addActionLabel(__('translation-manager::translations.add-translation-button'))
+                            ->hiddenLabel()
+                            ->defaultItems(0)
+                            ->reorderable(false)
+                            ->grid([
+                                'default' => 1,
+                                'sm' => 1,
+                                'md' => 2,
+                                'xl' => 3,
+                                '2xl' => 4,
+                            ])
+                            ->columnSpan(2)
+                            ->maxItems(count(TranslationManagerPlugin::get()->getAvailableLocales())),
+                    ]),
             ]);
     }
 
@@ -141,7 +147,7 @@ class LanguageLineResource extends Resource
                 ->sortable(false),
         ];
 
-        foreach (config('translation-manager.available_locales') as $locale) {
+        foreach (TranslationManagerPlugin::get()->getAvailableLocales() as $locale) {
             $localeCode = $locale['code'];
 
             $columns[] = IconColumn::make($localeCode)
@@ -183,24 +189,16 @@ class LanguageLineResource extends Resource
 
     public static function getNavigationIcon(): ?string
     {
-        if (config('translation-manager.navigation_icon') === false) {
-            return null;
-        }
-
-        return config('translation-manager.navigation_icon', static::$navigationIcon);
+        return TranslationManagerPlugin::get()->getNavigationIcon();
     }
 
     public static function getNavigationGroup(): ?string
     {
-        if (config('translation-manager.navigation_group_translation_key')) {
-            return __(config('translation-manager.navigation_group_translation_key'));
-        }
-
-        return config('translation-manager.navigation_group');
+        return TranslationManagerPlugin::get()->getNavigationGroup();
     }
 
     public static function getCluster(): ?string
     {
-        return config('translation-manager.cluster');
+        return TranslationManagerPlugin::get()->getCluster();
     }
 }

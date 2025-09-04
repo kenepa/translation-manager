@@ -3,18 +3,21 @@
 namespace Kenepa\TranslationManager\Traits;
 
 use Filament\Facades\Filament;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 
 trait CanRegisterPanelNavigation
 {
     public static function shouldRegisterOnPanel(): bool
     {
-        if (empty(config('translation-manager.dont_register_navigation_on_panel_ids'))) {
+        $dontRegisterIds = TranslationManagerPlugin::get()->getDontRegisterNavigationOnPanelIds();
+
+        if (empty($dontRegisterIds)) {
             return true;
         }
 
         if (in_array(
             Filament::getCurrentPanel()->getId(),
-            config('translation-manager.dont_register_navigation_on_panel_ids')
+            $dontRegisterIds
         )) {
             return false;
         }
