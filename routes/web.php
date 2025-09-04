@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 
 if (config('translation-manager.language_switcher')) {
-    $availableCodes = collect(config('translation-manager.available_locales'))
+    $availableCodes = collect(TranslationManagerPlugin::get()->getAvailableLocales())
         ->pluck('code')
         ->toArray();
 

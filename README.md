@@ -29,11 +29,6 @@ Install via Composer.
 composer require kenepa/translation-manager
 ```
 
-You can run the following command to publish the configuration file:
-```bash
-php artisan vendor:publish --tag=translation-manager-config
-```
-
 This package uses `spatie/laravel-translation-loader`, publish their migration file using:
 ```bash
 php artisan vendor:publish --provider="Spatie\TranslationLoader\TranslationServiceProvider" --tag="translation-loader-migrations"
@@ -81,9 +76,9 @@ class AdminPanelProvider extends PanelProvider
 
 ## Configuration
 
-**From version 5.x onwards, the main configuration is done through the plugin class.** The traditional config file is still supported for backwards compatibility, but all new configurations should be done through the plugin.
+**From version 5.x onwards, the main configuration is done through the plugin class.** The traditional config file is still supported for  compatibility, but all new configurations should be done through the plugin.
 
-### Plugin Configuration (Recommended)
+### Plugin Configuration
 
 Configure the plugin using fluent method chaining:
 
@@ -123,9 +118,13 @@ TranslationManagerPlugin::make()
 - `showFlags(bool $show = true)` - Show flags in language switcher
 - `prependDirectoryPathToGroupName(bool $prepend = true)` - Control group naming
 
-### Config File (Legacy Support)
+### Config File
 
-For backwards compatibility, you can still use the traditional config file approach. All existing config values will continue to work as fallbacks.
+You can run the following command to publish the configuration file:
+```bash
+php artisan vendor:publish --tag=translation-manager-config
+```
+
 
 ## Authorization
 
