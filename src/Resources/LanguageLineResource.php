@@ -9,7 +9,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ViewField;
-use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -24,8 +23,8 @@ use Kenepa\TranslationManager\Filters\NotTranslatedFilter;
 use Kenepa\TranslationManager\Pages\QuickTranslate;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\EditLanguageLine;
 use Kenepa\TranslationManager\Resources\LanguageLineResource\Pages\ListLanguageLines;
-use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Spatie\TranslationLoader\LanguageLine;
 
 class LanguageLineResource extends Resource

@@ -2,6 +2,7 @@
 
 namespace Kenepa\TranslationManager;
 
+use Exception;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Illuminate\View\View;
@@ -11,6 +12,7 @@ use Kenepa\TranslationManager\Resources\LanguageLineResource;
 
 class TranslationManagerPlugin implements Plugin
 {
+    protected static ?self $instance = null;
     protected ?array $availableLocales = null;
 
     protected ?bool $disableKeyAndGroupEditing = null;
@@ -35,8 +37,6 @@ class TranslationManagerPlugin implements Plugin
 
     protected ?bool $prependDirectoryPathToGroupName = null;
 
-    protected static ?self $instance = null;
-
     public static function make(): static
     {
         if (static::$instance === null) {
@@ -51,8 +51,9 @@ class TranslationManagerPlugin implements Plugin
         try {
             /** @var static $plugin */
             $plugin = filament(app(static::class)->getId());
+
             return $plugin;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Fallback to singleton when no panel context is available
             return static::make();
         }
@@ -76,7 +77,7 @@ class TranslationManagerPlugin implements Plugin
         if ($this->shouldEnableLanguageSwitcher()) {
             $panel->renderHook(
                 $this->getLanguageSwitcherRenderHook(),
-                fn(): View => $this->getLanguageSwitcherView()
+                fn (): View => $this->getLanguageSwitcherView()
             );
 
             $panel->authMiddleware([

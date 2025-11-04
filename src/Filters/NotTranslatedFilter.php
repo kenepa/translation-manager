@@ -21,7 +21,7 @@ class NotTranslatedFilter extends Filter
                 return $query
                     ->when(
                         $data['lang'],
-                        fn(Builder $query, $date): Builder => $query->whereNull('text->' . $data['lang'])
+                        fn (Builder $query, $date): Builder => $query->whereNull('text->' . $data['lang'])
                     );
             });
     }
