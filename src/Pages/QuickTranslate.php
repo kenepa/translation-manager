@@ -9,22 +9,27 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
 use Filament\Schemas\Schema;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
-use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Kenepa\TranslationManager\Traits\CanRegisterPanelNavigation;
+use Kenepa\TranslationManager\TranslationManagerPlugin;
 use Spatie\TranslationLoader\LanguageLine;
 
 class QuickTranslate extends Page implements HasForms
 {
     use CanRegisterPanelNavigation, InteractsWithForms;
 
-    protected string $view = 'translation-manager::quick-translate';
     protected static string $resource = LanguageLineResource::class;
 
     public $selectedLocale = null;
+
     public $offset = 0;
+
     public $record;
+
     public $totalLanguageLines;
+
     public $enteredTranslation;
+
+    protected string $view = 'translation-manager::quick-translate';
 
     /**
      * @param  array<string, mixed>  $parameters
@@ -56,7 +61,6 @@ class QuickTranslate extends Page implements HasForms
 
     /**
      * Returns an array containing two forms for quick translation of content.
-     * @param Schema $schema
      */
     public function selectForm(Schema $schema): Schema
     {
@@ -74,7 +78,6 @@ class QuickTranslate extends Page implements HasForms
 
     /**
      * Returns an array containing two forms for quick translation of content.
-     * @param Schema $schema
      */
     public function enterForm(Schema $schema): Schema
     {
@@ -84,7 +87,6 @@ class QuickTranslate extends Page implements HasForms
                 ->required(),
         ]);
     }
-
 
     /**
      * Saves the entered translation to the current record for the selected locale and proceeds to the next item.

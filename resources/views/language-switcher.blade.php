@@ -19,7 +19,7 @@
             <div class="pl-2">
                 <div class="flex items-center text-sm">
                     <span class="mr-3 s">{{ try_svg('flag-1x1-'.$currentLanguage['flag'], 'rounded-full w-8 h-8') }}</span>
-                    @if($isInSideBar)
+                    @if ($isInSideBar)
                         <span class="no-underline">{{ $currentLanguage['name'] }}</span>
                     @endif
                 </div>

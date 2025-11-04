@@ -5,7 +5,6 @@ namespace Kenepa\TranslationManager\Resources\LanguageLineResource\Pages;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use Kenepa\TranslationManager\Actions\SynchronizeAction;
-use Kenepa\TranslationManager\Pages\QuickTranslate;
 use Kenepa\TranslationManager\Resources\LanguageLineResource;
 
 class ListLanguageLines extends ListRecords
