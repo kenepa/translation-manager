@@ -10,7 +10,7 @@
         }
     }
 
-    $isInSideBar = !Filament::getCurrentPanel()->hasTopbar()
+    $isInSideBar = !Filament::getCurrentPanel()?->hasTopbar()
 @endphp
 
 <x-filament::dropdown placement="bottom-start">
