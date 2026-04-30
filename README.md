@@ -21,9 +21,9 @@ Install via Composer.
 
 | Plugin Version | Filament Version | PHP Version |
 |----------------|-----------------|-------------|
-| <= 3.x         | 2.x   | \> 8.0      |
+| <= 3.x         | 2.x             | \> 8.0      |
 | 4.x            | 3.x             | \> 8.1      |
-| 5.x            | 4.x             | \> 8.2      |
+| 5.x            | 4.x or 5.x      | \> 8.2      |
 
 ```bash
 composer require kenepa/translation-manager
@@ -188,6 +188,41 @@ Once installed, the Translation Manager can be accessed via the Filament sidebar
 
 
 ## Upgrade Guide
+
+### Upgrading to Filament 5.x (Livewire 4)
+
+Filament 5 introduces **Livewire 4 + Tailwind 4** support. There are **no API breaking changes** — your plugin configuration and panel setup remain identical.
+
+#### Prerequisites
+- **PHP**: 8.2+
+- **Laravel**: 11.28+
+- **Filament**: Upgrade to Filament 5.x
+- **Livewire**: Upgrade to Livewire 4.x
+
+#### Step 1: Upgrade Filament and Livewire
+
+```bash
+composer require livewire/livewire:"^4.0" filament/filament:"^5.0" -W
+```
+
+#### Step 2: Run the Filament upgrade script
+
+```bash
+composer require filament/upgrade:"^5.0" -W --dev
+vendor/bin/filament-v5
+```
+
+#### Step 3: Rebuild your theme assets
+
+Filament 5 requires **Tailwind CSS v4**. Rebuild your custom theme after upgrading:
+
+```bash
+npm install && npm run build
+```
+
+> No changes are required to your `TranslationManagerPlugin` configuration or any Blade views — everything works as-is with Filament 5.
+
+---
 
 ### Upgrading from 4.x to 5.x
 
