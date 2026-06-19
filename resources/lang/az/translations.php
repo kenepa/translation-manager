@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'translation-navigation-label' => 'Tərcümə Meneceri',
+    'translation-label' => 'Tərcümə|Tərcümələr',
+    'group' => 'Tərcümə qrupu',
+    'key' => 'Tərcümə açarı',
+    'preview-in-your-lang' => 'Cari dilinizdə önizləmə (:lang)',
+    'synchronize' => 'Sinxronizasiya et',
+    'synchronization-success' => ':count tərcümə sinxronizasiya edildi!',
+    'synchronization-deleted' => ':count istifadə olunmayan tərcümə silindi',
+    'preview' => 'Önizləmə',
+    'preview-description' => 'Bu, hazırda seçilmiş dil (:lang) üçün nümunədir',
+    'add-translation-button' => 'Yeni tərcümə əlavə et',
+    'translations-header' => 'Tərcümələr',
+    'translation-language' => 'Dil',
+    'translation-text' => 'Tərcümə mətni',
+    'filter-not-translated' => 'Bu dilə tərcümə olunmayıb',
+    'quick-translate' => 'Sürətli Tərcümə',
+    'quick-translate-select-locale' => 'Dili seçin',
+    'quick-translate-translation-number' => 'Tərcümə edilməli :total tərcümə qalıb',
+    'quick-translate-skip' => 'Bu tərcüməni keç',
+    'quick-translate-enter' => '":lang" dilində tərcüməni daxil edin:',
+    'quick-translate-save-and-continue' => 'Yadda saxla və davam et',
+    'quick-translate-nothing' => 'Tərcümə ediləcək heç nə qalmayıb!',
+];
